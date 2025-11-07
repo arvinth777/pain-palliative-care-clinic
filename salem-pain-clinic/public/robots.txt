@@ -1,0 +1,23 @@
+# Robots.txt for Salem Pain Clinic
+# https://salempainclinic.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://salempainclinic.com/sitemap.xml
+
+# Crawl-delay for bots that respect it
+Crawl-delay: 1
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
