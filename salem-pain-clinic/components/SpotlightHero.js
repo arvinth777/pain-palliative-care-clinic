@@ -31,19 +31,6 @@ export default function SpotlightHero() {
           >
             {/* Left Column - 50% width on large screens */}
             <div className="space-y-8">
-              {/* Trust badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white"
-              >
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                <span className="text-sm font-medium">
-                  Trusted by <CountUpNumber target={10000} suffix="+" className="font-bold" /> Patients
-                </span>
-              </motion.div>
-
               {/* Main headline */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
