@@ -32,12 +32,14 @@ export default function ServiceCard({ icon: Icon, title, description, link, feat
           rounded-xl
           bg-white
           
-          border-2 border-gray-200
+          border-2
+          border-gray-200
           
           transition-all duration-500
           
           hover:-translate-y-1.5
           hover:bg-primary/5
+          hover:border-2
           hover:border-primary
           hover:shadow-2xl 
           hover:shadow-primary/20

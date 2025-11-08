@@ -3,9 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   GraduationCap, 
-  Users, 
-  Clock, 
-  Star, 
   CheckCircle, 
   Heart, 
   Zap, 
@@ -17,6 +14,7 @@ import Link from 'next/link';
 import GlareWrapper from '@/components/ui/glare-wrapper';
 import { urlFor } from '@/lib/sanity';
 import PhotoCarousel from '@/components/PhotoCarousel';
+import { BackgroundGradientAnimation } from '@/components/ui/background-gradient-animation';
 
 export default function About() {
   const DOCTOR_FULL_NAME = 'Dr.\u00A0G.P.\u00A0Kirupakaran';
@@ -43,27 +41,6 @@ export default function About() {
     }
     fetchData();
   }, []);
-
-  const stats = [
-    {
-      icon: <Clock className="w-6 h-6" />,
-      value: '30+',
-      label: 'Years of Experience',
-      description: 'Three decades of excellence in anaesthesiology and pain management'
-    },
-    {
-      icon: <Users className="w-6 h-6" />,
-      value: '10,000+',
-      label: 'Patients Treated',
-      description: 'Trusted by thousands across Tamil Nadu for pain relief'
-    },
-    {
-      icon: <Star className="w-6 h-6" />,
-      value: '98%',
-      label: 'Success Rate',
-      description: 'Consistently delivering effective pain management solutions'
-    }
-  ];
 
   const credentials = [
     { 
@@ -95,68 +72,155 @@ export default function About() {
   ];
 
   return (
-    <>
-      {/* Minimal Professional Hero - Matching Services Page */}
-      <section className="relative bg-gradient-to-b from-gray-50 to-white pt-32 pb-16">
-        <div className="container-custom">
-          <motion.div 
-            className="max-w-4xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
-              <Heart className="w-4 h-4" />
-              Leading Pain Management Specialist
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 tracking-tight">
-              About {DOCTOR_FULL_NAME}
-            </h1>
-            
-            <p className="text-xl text-text-gray leading-relaxed max-w-3xl mb-6">
-              For over 30 years, Dr. Kirupakaran has been dedicated to alleviating suffering and 
-              restoring quality of life to patients experiencing chronic and acute pain conditions.
-            </p>
+    <div className="relative bg-gradient-to-br from-primary via-primary-dark to-[#0A0F14]">
+      {/* Hero Section with Animated Gradient Background - extends full page */}
+      <section className="relative min-h-screen overflow-hidden">
+        <BackgroundGradientAnimation
+          gradientBackgroundStart="rgb(43, 82, 115)"
+          gradientBackgroundEnd="rgb(15, 35, 60)"
+          firstColor="43, 82, 115"
+          secondColor="74, 144, 226"
+          thirdColor="100, 180, 255"
+          fourthColor="30, 60, 100"
+          fifthColor="43, 82, 115"
+          pointerColor="60, 120, 200"
+          size="80%"
+          blendingValue="hard-light"
+          interactive={true}
+          containerClassName="absolute inset-0"
+        >
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
+        </BackgroundGradientAnimation>
+        
+        {/* Hero Content */}
+        <div className="relative z-20 container-custom pt-32 pb-20 min-h-screen flex items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+            {/* Left Column - Text Content */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full text-sm font-semibold mb-6">
+                <Heart className="w-4 h-4" />
+                Leading Pain Management Specialist
+              </div>
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl">
+                About {DOCTOR_FULL_NAME}
+              </h1>
+              
+              <p className="text-xl text-white/95 leading-relaxed mb-6 font-medium drop-shadow-lg">
+                For over 30 years, Dr. Kirupakaran has been dedicated to alleviating suffering and 
+                restoring quality of life to patients experiencing chronic and acute pain conditions.
+              </p>
 
-            <p className="text-lg text-text-gray leading-relaxed max-w-3xl">
-              A proud alumnus of the prestigious Christian Medical College (CMC) Vellore, 
-              Dr. Kirupakaran combines world-class medical expertise with genuine compassion, 
-              making him one of Salem&apos;s most trusted pain management specialists.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+              <p className="text-lg text-white/90 leading-relaxed drop-shadow-md">
+                A proud alumnus of the prestigious Christian Medical College (CMC) Vellore, 
+                Dr. Kirupakaran combines world-class medical expertise with genuine compassion, 
+                making him one of Salem&apos;s most trusted pain management specialists.
+              </p>
+            </motion.div>
 
-      {/* Stats Grid - Clean Medical Cards Matching Services */}
-      <section className="py-20 bg-white">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {stats.map((stat, index) => (
-              <GlareWrapper
-                key={index}
-                glareColor="#2B5273"
-                glareOpacity={0.3}
-                glareSize={200}
-                transitionDuration={500}
-                className="h-full"
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="relative group bg-white border-2 border-gray-200 rounded-2xl p-8 transition-all duration-500 hover:bg-primary/5 hover:border-primary hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-1 overflow-hidden h-full text-center"
-                >
-                  <div className="w-16 h-16 mx-auto rounded-xl bg-gray-100 group-hover:bg-primary shadow-sm flex items-center justify-center text-gray-600 group-hover:text-white transition-all duration-500 mb-4">
-                    {stat.icon}
+            {/* Right Column - Hero Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex items-center justify-center"
+            >
+              {websiteImages?.aboutHeroImage ? (
+                <div className="relative w-full aspect-square max-w-lg rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20">
+                  <img
+                    src={urlFor(websiteImages.aboutHeroImage).url()}
+                    alt="Dr. G.P. Kirupakaran"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="relative w-full aspect-square max-w-lg rounded-2xl overflow-hidden bg-white/10 backdrop-blur-sm border-4 border-white/20 shadow-2xl flex items-center justify-center">
+                  <div className="text-center text-white/60 p-8">
+                    <Heart className="w-16 h-16 mx-auto mb-4 opacity-40" />
+                    <p className="text-lg font-medium">About Hero Image</p>
+                    <p className="text-sm mt-2">Upload in Sanity CMS</p>
                   </div>
-                  
-                  <h3 className="text-5xl font-bold text-primary mb-2">{stat.value}</h3>
-                  <p className="text-lg font-bold text-gray-800 mb-3">{stat.label}</p>
-                  <p className="text-sm text-text-gray">{stat.description}</p>
-                </motion.div>
-              </GlareWrapper>
-            ))}
+                </div>
+              )}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Mission Statement - With same gradient background */}
+        <div className="relative z-20 py-20">
+          <BackgroundGradientAnimation
+            gradientBackgroundStart="rgb(43, 82, 115)"
+            gradientBackgroundEnd="rgb(15, 35, 60)"
+            firstColor="43, 82, 115"
+            secondColor="74, 144, 226"
+            thirdColor="100, 180, 255"
+            fourthColor="30, 60, 100"
+            fifthColor="43, 82, 115"
+            pointerColor="60, 120, 200"
+            size="80%"
+            blendingValue="hard-light"
+            interactive={true}
+            containerClassName="absolute inset-0"
+          >
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
+          </BackgroundGradientAnimation>
+          
+          <div className="relative z-20 container-custom">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="p-8 md:p-12"
+            >
+              <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-6 drop-shadow-lg">
+                Our Approach to Care
+              </h2>
+              
+              <p className="text-lg text-white/90 leading-relaxed text-center max-w-3xl mx-auto mb-8 drop-shadow-md">
+                At Salem Pain Clinic, we believe in treating every patient with compassion and dignity. 
+                Our personalized approach combines advanced medical techniques with genuine care to help 
+                you achieve lasting relief and improved quality of life.
+              </p>
+              
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center p-4">
+                  <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mx-auto mb-3">
+                    <Heart className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-bold text-white mb-1 drop-shadow-md">Compassionate</h3>
+                  <p className="text-sm text-white/80 drop-shadow-sm">Patient-centered care</p>
+                </div>
+                
+                <div className="text-center p-4">
+                  <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mx-auto mb-3">
+                    <Zap className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-bold text-white mb-1 drop-shadow-md">Advanced</h3>
+                  <p className="text-sm text-white/80 drop-shadow-sm">Modern techniques</p>
+                </div>
+                
+                <div className="text-center p-4">
+                  <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mx-auto mb-3">
+                    <CheckCircle className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-bold text-white mb-1 drop-shadow-md">Personalized</h3>
+                  <p className="text-sm text-white/80 drop-shadow-sm">Tailored treatment</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
           </div>
         </div>
       </section>
@@ -205,7 +269,7 @@ export default function About() {
                     </div>
                     <div>
                       <h2 className="text-2xl font-bold text-gray-700 mb-1 whitespace-nowrap">{DOCTOR_FULL_NAME}</h2>
-                      <p className="text-text-gray">MBBS, MD, DA</p>
+                      <p className="text-gray-600 font-medium">MBBS, MD, DA</p>
                       <p className="text-gray-500 text-sm mt-2">Professional Photo</p>
                     </div>
                   </div>
@@ -213,7 +277,7 @@ export default function About() {
               )}
             </motion.div>
 
-            {/* Biography */}
+            {/* Biography - Enhanced Typography */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -221,17 +285,17 @@ export default function About() {
               transition={{ duration: 0.6 }}
               className="space-y-6"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 text-primary rounded-full text-sm font-semibold">
                 <Award className="w-4 h-4" />
                 Medical Background
               </div>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-primary">
-                A Lifetime Dedicated to Healing
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                A Lifetime Dedicated to <span className="text-primary">Healing</span>
               </h2>
               
-              <div className="space-y-4 text-text-gray leading-relaxed">
-                <p>
+              <div className="space-y-4 text-gray-700 leading-relaxed text-base">
+                <p className="font-medium">
                   Dr. Kirupakaran&apos;s approach goes beyond treating symptoms—he partners with each 
                   patient to understand their unique pain journey and craft personalized treatment plans 
                   that address both physical and emotional aspects of pain management.
@@ -245,8 +309,8 @@ export default function About() {
                 </p>
               </div>
 
-              <div className="bg-cream-50 border-l-4 border-primary rounded-lg p-6">
-                <p className="text-gray-700 italic">
+              <div className="bg-gradient-to-br from-blue-50 to-primary/5 border-l-4 border-primary rounded-lg p-6 shadow-md">
+                <p className="text-gray-800 italic font-medium leading-relaxed">
                   &ldquo;Every patient who walks through our doors is not just a medical case, but a person 
                   deserving of compassion, respect, and the highest quality of care.&rdquo;
                 </p>
@@ -265,44 +329,42 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              Medical Education & Qualifications
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 text-primary rounded-full text-sm font-semibold mb-4">
+              <GraduationCap className="w-4 h-4" />
+              Elite Medical Training
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Medical Education & <span className="text-primary">Qualifications</span>
             </h2>
-            <p className="text-xl text-text-gray max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               World-class training from India&apos;s most prestigious medical institutions
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {credentials.map((cred, index) => (
-              <GlareWrapper
+              <motion.div
                 key={index}
-                glareColor="#2B5273"
-                glareOpacity={0.3}
-                glareSize={200}
-                transitionDuration={500}
-                className="h-full"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="relative group bg-white border-2 border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:border-primary hover:shadow-xl hover:-translate-y-1"
               >
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative group bg-white border-2 border-gray-200 rounded-2xl p-8 transition-all duration-500 hover:bg-primary/5 hover:border-primary hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-1 overflow-hidden h-full"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gray-100 group-hover:bg-primary shadow-sm flex items-center justify-center text-gray-600 group-hover:text-white transition-all duration-500">
-                      <GraduationCap className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-800 group-hover:text-primary transition-colors duration-500">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-lg flex items-center justify-center text-white flex-shrink-0">
+                    <GraduationCap className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">
                       {cred.degree}
                     </h3>
+                    <p className="text-sm font-semibold text-primary">{cred.institution}</p>
                   </div>
+                </div>
                   
-                  <p className="font-semibold text-gray-700 mb-2">{cred.institution}</p>
-                  <p className="text-sm text-text-gray">{cred.description}</p>
-                </motion.div>
-              </GlareWrapper>
+                <p className="text-sm text-gray-600 leading-relaxed">{cred.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -315,16 +377,16 @@ export default function About() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl p-8 md:p-12 shadow-sm"
+            className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                <CheckCircle className="w-6 h-6" />
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white shadow-lg">
+                <CheckCircle className="w-7 h-7" />
               </div>
-              <h3 className="text-3xl font-bold text-primary">Areas of Expertise</h3>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900">Areas of <span className="text-primary">Expertise</span></h3>
             </div>
 
-            <p className="text-lg text-text-gray mb-8">
+            <p className="text-lg text-gray-600 mb-8 font-medium">
               Comprehensive pain management solutions using advanced techniques and compassionate care
             </p>
 
@@ -336,10 +398,10 @@ export default function About() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
-                  className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 p-4 rounded-xl hover:bg-primary/5 transition-all duration-300 group border border-transparent hover:border-primary/20"
                 >
-                  <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
-                  <span className="text-gray-700 font-medium">{item}</span>
+                  <div className="w-2.5 h-2.5 rounded-full bg-primary flex-shrink-0" />
+                  <span className="text-gray-700 font-semibold">{item}</span>
                 </motion.div>
               ))}
             </div>
@@ -347,8 +409,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* Photo Gallery Section - Clinic & Equipment Photos from CMS */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-cream-50">
+      {/* Photo Gallery Section */}
+      <section className="py-20 bg-white">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -361,10 +423,10 @@ export default function About() {
               <Award className="w-4 h-4" />
               Our Facilities
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              Modern Clinic & Advanced Equipment
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Modern Clinic & <span className="text-primary">Advanced Equipment</span>
             </h2>
-            <p className="text-lg text-text-gray max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Take a look at our state-of-the-art facilities and cutting-edge medical equipment
             </p>
           </motion.div>
@@ -372,9 +434,8 @@ export default function About() {
           {(() => {
             // Only process if websiteImages data is loaded
             if (!websiteImages) {
-              // Show placeholder while loading
               return (
-                <div className="max-w-2xl mx-auto bg-white rounded-2xl border-2 border-dashed border-primary/30 p-12 text-center">
+                <div className="max-w-2xl mx-auto bg-gray-50 rounded-2xl border-2 border-dashed border-primary/30 p-12 text-center">
                   <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                     <Award className="w-10 h-10 text-primary" />
                   </div>
@@ -384,15 +445,6 @@ export default function About() {
                   <p className="text-gray-600 mb-6">
                     Photos of our clinic facilities and medical equipment will be displayed here once uploaded.
                   </p>
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
-                    <p className="text-sm text-blue-900 font-medium mb-2">📸 Photos to Upload:</p>
-                    <ul className="text-sm text-blue-800 space-y-1">
-                      <li>• Clinic exterior & waiting area</li>
-                      <li>• Consultation & treatment rooms</li>
-                      <li>• Ultrasound & pain management equipment</li>
-                      <li>• Team photos & certificates</li>
-                    </ul>
-                  </div>
                 </div>
               );
             }
@@ -437,12 +489,12 @@ export default function About() {
               galleryImages.push({ asset: websiteImages.certificatesWall, caption: 'Certificates & Awards' });
             }
 
-            // Show carousel if images exist, otherwise show placeholder
+            // Show carousel if images exist
             if (galleryImages.length > 0) {
               return <PhotoCarousel images={galleryImages} />;
             } else {
               return (
-                <div className="max-w-2xl mx-auto bg-white rounded-2xl border-2 border-dashed border-primary/30 p-12 text-center">
+                <div className="max-w-2xl mx-auto bg-gray-50 rounded-2xl border-2 border-dashed border-primary/30 p-12 text-center">
                   <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                     <Award className="w-10 h-10 text-primary" />
                   </div>
@@ -452,15 +504,6 @@ export default function About() {
                   <p className="text-gray-600 mb-6">
                     Photos of our clinic facilities and medical equipment will be displayed here once uploaded.
                   </p>
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
-                    <p className="text-sm text-blue-900 font-medium mb-2">📸 Photos to Upload:</p>
-                    <ul className="text-sm text-blue-800 space-y-1">
-                      <li>• Clinic exterior & waiting area</li>
-                      <li>• Consultation & treatment rooms</li>
-                      <li>• Ultrasound & pain management equipment</li>
-                      <li>• Team photos & certificates</li>
-                    </ul>
-                  </div>
                 </div>
               );
             }
@@ -468,99 +511,24 @@ export default function About() {
         </div>
       </section>
 
-      {/* Advanced Equipment Section */}
-      <section className="py-20 bg-white">
-        <div className="container-custom max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-primary/5 border-2 border-primary/20 rounded-2xl p-8 md:p-12"
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary text-white rounded-full text-xs font-bold mb-4">
-              <Zap className="w-3 h-3" />
-              MOST ADVANCED
-            </div>
-            
-            <h3 className="text-3xl font-bold text-primary mb-4">
-              Advanced Ultrasound-Guided Technology
-            </h3>
-            
-            <p className="text-lg text-text-gray mb-6">
-              We invest in state-of-the-art ultrasound technology to ensure the highest level of precision and safety in our treatments. 
-              This advanced equipment allows us to provide superior care with enhanced accuracy and minimal discomfort for our patients.
-            </p>
-
-            <div className="bg-white rounded-xl p-6 mb-6">
-              <div className="flex items-start gap-4">
-                <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                  <Zap className="w-8 h-8" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-gray-800 mb-2">Premium Medical Equipment</h4>
-                  <p className="text-gray-600">Hospital-grade ultrasound system for optimal patient outcomes</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h4 className="font-bold text-primary mb-3">Key Benefits</h4>
-                <ul className="space-y-2 text-text-gray">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Real-time visualization of needle placement</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Increased accuracy and effectiveness</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Reduced risk of complications</span>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-bold text-primary mb-3">Patient Experience</h4>
-                <ul className="space-y-2 text-text-gray">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Minimal discomfort during procedures</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Faster recovery times</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Superior patient outcomes</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Professional CTA - Matching Services Page */}
+      {/* CTA Section */}
       <section className="py-20 bg-gray-50 border-t border-gray-100">
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="bg-gradient-to-br from-primary via-primary-dark to-blue-900 rounded-3xl p-12 md:p-16 text-white text-center relative overflow-hidden">
+            <div className="bg-gradient-to-br from-primary via-primary-dark to-blue-900 rounded-3xl p-12 md:p-16 text-white text-center relative overflow-hidden shadow-2xl">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400/10 rounded-full translate-y-1/2 -translate-x-1/2" />
               
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white drop-shadow-2xl brightness-110">
                   Ready to Start Your Journey to Pain Relief?
                 </h2>
-                <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                <p className="text-xl text-white/95 mb-8 max-w-2xl mx-auto drop-shadow-xl brightness-105">
                   Schedule a consultation with {DOCTOR_FULL_NAME} and take the first step towards a pain-free life.
                 </p>
                 
@@ -586,6 +554,6 @@ export default function About() {
           </motion.div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

@@ -138,18 +138,27 @@ export default function GeminiChatbot() {
         )}
       </AnimatePresence>
 
-      {/* Chat Trigger Button */}
-      <Button
-        size="icon"
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-2xl hover:scale-110 transition-all duration-300"
-      >
-        {isOpen ? (
-          <X className="w-6 h-6" />
-        ) : (
-          <MessageCircle className="w-6 h-6" />
-        )}
-      </Button>
+      {/* Chat Trigger Button with Online Indicator */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          size="icon"
+          onClick={() => setIsOpen(!isOpen)}
+          className="relative w-16 h-16 rounded-full shadow-2xl hover:scale-110 transition-all duration-300"
+        >
+          {isOpen ? (
+            <X className="w-10 h-10" />
+          ) : (
+            <MessageCircle className="w-10 h-10" />
+          )}
+          {/* Green Online Indicator */}
+          {!isOpen && (
+            <span className="absolute top-1 right-1 flex h-3.5 w-3.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-green-500 border-2 border-white"></span>
+            </span>
+          )}
+        </Button>
+      </div>
 
       {/* Chat Window */}
       <AnimatePresence>

@@ -9,7 +9,7 @@ import { CountUpNumber } from '@/components/ui/CountUpNumber';
 
 export default function SpotlightHero() {
   return (
-    <section className="hero-watermark relative min-h-screen flex flex-col overflow-hidden bg-gradient-to-br from-primary via-primary-dark to-[#0A0F14]">
+    <section className="hero-watermark relative min-h-screen flex flex-col overflow-hidden bg-gradient-to-br from-primary via-primary-dark to-[#0A0F14] pt-20">
       {/* Animated spotlight effect */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary-light/30 rounded-full blur-[120px] animate-pulse-slow"></div>
@@ -139,7 +139,7 @@ export default function SpotlightHero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1.1 }}
-        className="relative z-10 pb-20"
+        className="relative z-10 pb-32"
       >
         <div className="container-custom px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">

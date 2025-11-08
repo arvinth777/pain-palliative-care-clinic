@@ -170,7 +170,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.variable} ${lora.variable} antialiased font-sans`}>
         <AnimatedBackground />
         <Header />
-        <main className="min-h-screen pt-20">{children}</main>
+        <main className="min-h-screen">{children}</main>
         <Footer />
         <ClientChatbotWrapper />
       </body>

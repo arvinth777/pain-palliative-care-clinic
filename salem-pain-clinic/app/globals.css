@@ -118,6 +118,20 @@ section[id] {
   animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+.animate-gradient-x {
+  background-size: 200% 100%;
+  animation: gradient-x 3s ease infinite;
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 @layer base {
   body {
     @apply font-sans text-text-gray bg-white overflow-x-hidden;
@@ -308,6 +322,72 @@ section[id] {
 .spotlight-card > * {
   position: relative;
   z-index: 1;
+}
+
+/* Background Gradient Animation keyframes */
+@keyframes first {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes second {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes third {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fourth {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes fifth {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-first {
+  animation: first 30s linear infinite;
+}
+
+.animate-second {
+  animation: second 40s linear infinite;
+}
+
+.animate-third {
+  animation: third 55s linear infinite;
+}
+
+.animate-fourth {
+  animation: fourth 35s linear infinite;
+}
+
+.animate-fifth {
+  animation: fifth 25s linear infinite;
 }
 
 

@@ -21,7 +21,7 @@ export default function Header() {
   return (
     <>
       {/* Floating Glassmorphism Navbar - Desktop */}
-      <nav className="hidden md:flex fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl rounded-2xl border border-gray-200/40 bg-white/80 backdrop-blur-md shadow-lg shadow-black/5 p-4 z-50">
+      <nav className="hidden md:flex fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl rounded-2xl border border-white/20 bg-white/60 backdrop-blur-xl shadow-lg shadow-black/5 p-4 z-50">
         <div className="flex items-center justify-between w-full">
           {/* Logo Section */}
           <Link href="/" className="flex items-center gap-3 group">
@@ -87,7 +87,7 @@ export default function Header() {
       </nav>
 
       {/* Mobile Header */}
-      <header className="md:hidden fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-200/40 shadow-sm">
+      <header className="md:hidden fixed top-0 w-full z-50 bg-white/60 backdrop-blur-xl border-b border-white/20 shadow-sm">
         <div className="container-custom">
           <div className="flex justify-between items-center py-3">
             {/* Mobile Logo */}
