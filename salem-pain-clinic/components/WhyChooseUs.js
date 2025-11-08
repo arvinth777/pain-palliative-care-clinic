@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import Image from 'next/image';
 
 export default function WhyChooseUs() {
   const reasons = [
@@ -35,14 +36,35 @@ export default function WhyChooseUs() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-primary-subtle to-primary/5 aspect-[4/3] flex items-center justify-center">
-              {/* Placeholder for clinic/equipment image */}
-              <div className="text-center p-12">
-                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Check className="w-12 h-12 text-primary" />
+            <div className="relative rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-primary-subtle to-primary/5 aspect-[4/3]">
+              {/* 
+                TO ADD YOUR IMAGE:
+                1. Place your image in /public/images/ folder (e.g., clinic-equipment.jpg)
+                2. Uncomment the Image component below and comment out the placeholder
+                3. Update the src path to match your image filename
+              */}
+              
+              {/* Real Image (Uncomment when ready) */}
+              {/* <Image 
+                src="/images/clinic-equipment.jpg"
+                alt="Advanced ultrasound equipment at Salem Pain Clinic"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              /> */}
+              
+              {/* Placeholder (Remove when you add real image) */}
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center p-12">
+                  <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Check className="w-12 h-12 text-primary" />
+                  </div>
+                  <p className="text-primary font-semibold text-lg">Advanced Medical Technology</p>
+                  <p className="text-text-gray text-sm mt-2">State-of-the-art ultrasound equipment</p>
+                  <p className="text-xs text-gray-400 mt-4">
+                    📸 Add your image to /public/images/ and uncomment the Image component above
+                  </p>
                 </div>
-                <p className="text-primary font-semibold text-lg">Advanced Medical Technology</p>
-                <p className="text-text-gray text-sm mt-2">State-of-the-art ultrasound equipment</p>
               </div>
             </div>
           </motion.div>

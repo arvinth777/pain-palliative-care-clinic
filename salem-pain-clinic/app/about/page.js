@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   GraduationCap, 
@@ -15,9 +15,34 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import GlareWrapper from '@/components/ui/glare-wrapper';
+import { urlFor } from '@/lib/sanity';
+import PhotoCarousel from '@/components/PhotoCarousel';
 
 export default function About() {
   const DOCTOR_FULL_NAME = 'Dr.\u00A0G.P.\u00A0Kirupakaran';
+  
+  // State for Sanity CMS data
+  const [doctorData, setDoctorData] = useState(null);
+  const [clinicInfo, setClinicInfo] = useState(null);
+  const [websiteImages, setWebsiteImages] = useState(null);
+  
+  // Fetch data from Sanity on component mount
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Use internal API route instead of direct Sanity client (avoids CORS)
+        const response = await fetch('/api/sanity');
+        const data = await response.json();
+        
+        setDoctorData(data.doctor);
+        setClinicInfo(data.clinic);
+        setWebsiteImages(data.images);
+      } catch (error) {
+        console.error('Error fetching Sanity data:', error);
+      }
+    }
+    fetchData();
+  }, []);
 
   const stats = [
     {
@@ -147,26 +172,45 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <GlareWrapper
-                glareColor="#2B5273"
-                glareOpacity={0.4}
-                glareSize={250}
-                transitionDuration={600}
-                borderRadius="1.5rem"
-                className="relative bg-gradient-to-br from-gray-200 to-gray-300 rounded-3xl aspect-[4/5] shadow-2xl flex items-center justify-center overflow-hidden"
-              >
-                <div className="absolute inset-6 rounded-[36px] bg-white/30" aria-hidden="true"></div>
-                <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 px-8 text-center">
-                  <div className="flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-primary to-primary-dark text-white shadow-xl">
-                    <GraduationCap className="h-20 w-20" aria-hidden="true" />
+              {(websiteImages?.doctorPhoto || doctorData?.profileImage) ? (
+                /* CMS Image - Shows when uploaded in Sanity */
+                <GlareWrapper
+                  glareColor="#2B5273"
+                  glareOpacity={0.4}
+                  glareSize={250}
+                  transitionDuration={600}
+                  borderRadius="1.5rem"
+                  className="relative rounded-3xl aspect-[4/5] shadow-2xl overflow-hidden"
+                >
+                  <img
+                    src={urlFor(websiteImages?.doctorPhoto || doctorData?.profileImage).width(600).height(750).url()}
+                    alt="Dr. G.P. Kirupakaran"
+                    className="w-full h-full object-cover"
+                  />
+                </GlareWrapper>
+              ) : (
+                /* Placeholder - Shows until photo uploaded */
+                <GlareWrapper
+                  glareColor="#2B5273"
+                  glareOpacity={0.4}
+                  glareSize={250}
+                  transitionDuration={600}
+                  borderRadius="1.5rem"
+                  className="relative bg-gradient-to-br from-gray-200 to-gray-300 rounded-3xl aspect-[4/5] shadow-2xl flex items-center justify-center overflow-hidden"
+                >
+                  <div className="absolute inset-6 rounded-[36px] bg-white/30" aria-hidden="true"></div>
+                  <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 px-8 text-center">
+                    <div className="flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-primary to-primary-dark text-white shadow-xl">
+                      <GraduationCap className="h-20 w-20" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-700 mb-1 whitespace-nowrap">{DOCTOR_FULL_NAME}</h2>
+                      <p className="text-text-gray">MBBS, MD, DA</p>
+                      <p className="text-gray-500 text-sm mt-2">Professional Photo</p>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-700 mb-1 whitespace-nowrap">{DOCTOR_FULL_NAME}</h2>
-                    <p className="text-text-gray">MBBS, MD, DA</p>
-                    <p className="text-gray-500 text-sm mt-2">Professional Photo</p>
-                  </div>
-                </div>
-              </GlareWrapper>
+                </GlareWrapper>
+              )}
             </motion.div>
 
             {/* Biography */}
@@ -303,6 +347,127 @@ export default function About() {
         </div>
       </section>
 
+      {/* Photo Gallery Section - Clinic & Equipment Photos from CMS */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-cream-50">
+        <div className="container-custom">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+              <Award className="w-4 h-4" />
+              Our Facilities
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+              Modern Clinic & Advanced Equipment
+            </h2>
+            <p className="text-lg text-text-gray max-w-2xl mx-auto">
+              Take a look at our state-of-the-art facilities and cutting-edge medical equipment
+            </p>
+          </motion.div>
+
+          {(() => {
+            // Only process if websiteImages data is loaded
+            if (!websiteImages) {
+              // Show placeholder while loading
+              return (
+                <div className="max-w-2xl mx-auto bg-white rounded-2xl border-2 border-dashed border-primary/30 p-12 text-center">
+                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                    <Award className="w-10 h-10 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                    Photo Gallery Coming Soon
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    Photos of our clinic facilities and medical equipment will be displayed here once uploaded.
+                  </p>
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
+                    <p className="text-sm text-blue-900 font-medium mb-2">📸 Photos to Upload:</p>
+                    <ul className="text-sm text-blue-800 space-y-1">
+                      <li>• Clinic exterior & waiting area</li>
+                      <li>• Consultation & treatment rooms</li>
+                      <li>• Ultrasound & pain management equipment</li>
+                      <li>• Team photos & certificates</li>
+                    </ul>
+                  </div>
+                </div>
+              );
+            }
+
+            const galleryImages = [];
+            
+            // Collect all uploaded images with captions
+            if (websiteImages.clinicExterior) {
+              galleryImages.push({ asset: websiteImages.clinicExterior, caption: 'Clinic Exterior' });
+            }
+            if (websiteImages.waitingArea) {
+              galleryImages.push({ asset: websiteImages.waitingArea, caption: 'Waiting Area' });
+            }
+            if (websiteImages.consultationRoom) {
+              galleryImages.push({ asset: websiteImages.consultationRoom, caption: 'Consultation Room' });
+            }
+            if (websiteImages.ultrasoundMachine) {
+              galleryImages.push({ asset: websiteImages.ultrasoundMachine, caption: 'Ultrasound-Guided Equipment' });
+            }
+            if (websiteImages.painManagementEquipment) {
+              galleryImages.push({ asset: websiteImages.painManagementEquipment, caption: 'Pain Management Equipment' });
+            }
+            if (websiteImages.treatmentRoom) {
+              galleryImages.push({ asset: websiteImages.treatmentRoom, caption: 'Treatment Room' });
+            }
+            if (websiteImages.medicalEquipment1) {
+              galleryImages.push({ asset: websiteImages.medicalEquipment1, caption: 'Medical Equipment' });
+            }
+            if (websiteImages.medicalEquipment2) {
+              galleryImages.push({ asset: websiteImages.medicalEquipment2, caption: 'Medical Equipment' });
+            }
+            if (websiteImages.medicalEquipment3) {
+              galleryImages.push({ asset: websiteImages.medicalEquipment3, caption: 'Medical Equipment' });
+            }
+            if (websiteImages.receptionDesk) {
+              galleryImages.push({ asset: websiteImages.receptionDesk, caption: 'Reception Desk' });
+            }
+            if (websiteImages.teamPhoto) {
+              galleryImages.push({ asset: websiteImages.teamPhoto, caption: 'Our Team' });
+            }
+            if (websiteImages.certificatesWall) {
+              galleryImages.push({ asset: websiteImages.certificatesWall, caption: 'Certificates & Awards' });
+            }
+
+            // Show carousel if images exist, otherwise show placeholder
+            if (galleryImages.length > 0) {
+              return <PhotoCarousel images={galleryImages} />;
+            } else {
+              return (
+                <div className="max-w-2xl mx-auto bg-white rounded-2xl border-2 border-dashed border-primary/30 p-12 text-center">
+                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                    <Award className="w-10 h-10 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                    Photo Gallery Coming Soon
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    Photos of our clinic facilities and medical equipment will be displayed here once uploaded.
+                  </p>
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
+                    <p className="text-sm text-blue-900 font-medium mb-2">📸 Photos to Upload:</p>
+                    <ul className="text-sm text-blue-800 space-y-1">
+                      <li>• Clinic exterior & waiting area</li>
+                      <li>• Consultation & treatment rooms</li>
+                      <li>• Ultrasound & pain management equipment</li>
+                      <li>• Team photos & certificates</li>
+                    </ul>
+                  </div>
+                </div>
+              );
+            }
+          })()}
+        </div>
+      </section>
+
       {/* Advanced Equipment Section */}
       <section className="py-20 bg-white">
         <div className="container-custom max-w-5xl">
@@ -318,12 +483,12 @@ export default function About() {
             </div>
             
             <h3 className="text-3xl font-bold text-primary mb-4">
-              State-of-the-Art Ultrasound Technology
+              Advanced Ultrasound-Guided Technology
             </h3>
             
             <p className="text-lg text-text-gray mb-6">
-              Our clinic features a premium ultrasound system valued at <span className="font-bold text-primary">$30,000</span>, 
-              representing our commitment to providing the highest standard of care with cutting-edge technology.
+              We invest in state-of-the-art ultrasound technology to ensure the highest level of precision and safety in our treatments. 
+              This advanced equipment allows us to provide superior care with enhanced accuracy and minimal discomfort for our patients.
             </p>
 
             <div className="bg-white rounded-xl p-6 mb-6">
@@ -332,8 +497,8 @@ export default function About() {
                   <Zap className="w-8 h-8" />
                 </div>
                 <div>
-                  <h4 className="text-2xl font-bold text-gray-800 mb-2">$30,000</h4>
-                  <p className="text-gray-600">Premium Ultrasound System</p>
+                  <h4 className="text-xl font-bold text-gray-800 mb-2">Premium Medical Equipment</h4>
+                  <p className="text-gray-600">Hospital-grade ultrasound system for optimal patient outcomes</p>
                 </div>
               </div>
             </div>
@@ -409,11 +574,11 @@ export default function About() {
                   </Link>
                   
                   <a 
-                    href="tel:+919488384151" 
+                    href="tel:+919842798422" 
                     className="inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white/10 h-14 px-8 rounded-full font-semibold transition-all"
                   >
                     <Phone className="w-5 h-5" />
-                    +91 94883 84151
+                    +91 98427 98422
                   </a>
                 </div>
               </div>

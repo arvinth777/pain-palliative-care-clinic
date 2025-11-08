@@ -23,6 +23,7 @@ import SpotlightHero from '@/components/SpotlightHero';
 import TrustBar from '@/components/TrustBar';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import GlareWrapper from '@/components/ui/glare-wrapper';
+import FadeInUp from '@/components/FadeInUp';
 
 export default function Home() {
   const DOCTOR_FULL_NAME = 'Dr.\u00A0G.P.\u00A0Kirupakaran';
@@ -184,37 +185,25 @@ export default function Home() {
         
         <div className="container-custom relative z-10">
           {/* Modern Section Header */}
-          <motion.div 
-            className="text-center mb-16 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6">
-              Our Services
+          <FadeInUp>
+            <div className="text-center mb-16 max-w-3xl mx-auto">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6">
+                Our Services
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
+                Specialized Care for Your Pain
+              </h2>
+              <p className="text-xl text-text-gray leading-relaxed">
+                We offer a comprehensive range of advanced treatments to help you 
+                regain your life from chronic pain
+              </p>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
-              Specialized Care for Your Pain
-            </h2>
-            <p className="text-xl text-text-gray leading-relaxed">
-              We offer a comprehensive range of advanced treatments to help you 
-              regain your life from chronic pain
-            </p>
-          </motion.div>
+          </FadeInUp>
 
-          {/* Services Grid */}
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial="initial"
-            animate="animate"
-            variants={staggerChildren}
-          >
+          {/* Services Grid with Scroll Animation */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                className="h-full"
-              >
+              <FadeInUp key={index} delay={index * 0.1}>
                 <ServiceCard
                   icon={service.icon}
                   title={service.title}
@@ -222,9 +211,9 @@ export default function Home() {
                   link={service.link}
                   featured={service.featured}
                 />
-              </motion.div>
+              </FadeInUp>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 

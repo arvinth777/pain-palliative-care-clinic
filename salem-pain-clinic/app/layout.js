@@ -2,8 +2,12 @@ import { Inter, Lora } from 'next/font/google';
 import './globals.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import GeminiChatbot from '../components/GeminiChatbot';
+import ClientChatbotWrapper from '../components/ClientChatbotWrapper';
+import AnimatedBackground from '../components/AnimatedBackground';
 import Script from 'next/script';
+
+// Force dynamic rendering to avoid Radix UI SSR issues
+export const dynamic = 'force-dynamic';
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -25,6 +29,26 @@ export const metadata = {
   title: 'Salem Pain Clinic | Expert Pain Management in Salem, Tamil Nadu',
   description: `30+ years of specialized pain management & palliative care. ${DOCTOR_FULL_NAME} offers advanced ultrasound-guided procedures in Salem.`,
   keywords: 'pain management Salem, pain doctor Salem Tamil Nadu, palliative care Salem, chronic pain treatment Salem, cancer pain relief Salem, interventional pain procedures Salem',
+  authors: [{ name: 'Dr. G.P. Kirupakaran' }],
+  creator: 'Salem Pain Clinic',
+  publisher: 'Salem Pain Clinic',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: 'https://salempainclinic.com',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   openGraph: {
     title: 'Salem Pain Clinic | Expert Pain Management in Salem, Tamil Nadu',
     description: `30+ years of specialized pain management & palliative care. ${DOCTOR_FULL_NAME} offers advanced ultrasound-guided procedures in Salem.`,
@@ -32,11 +56,20 @@ export const metadata = {
     siteName: 'Salem Pain Clinic',
     locale: 'en_IN',
     type: 'website',
+    images: [
+      {
+        url: 'https://salempainclinic.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Salem Pain Clinic - Expert Pain Management',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Salem Pain Clinic | Expert Pain Management',
-    description: '30+ years of specialized pain management & palliative care in Salem, Tamil Nadu'
+    description: '30+ years of specialized pain management & palliative care in Salem, Tamil Nadu',
+    images: ['https://salempainclinic.com/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -44,13 +77,13 @@ export const metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      maxVideoPreview: -1,
+      maxImagePreview: 'large',
+      maxSnippet: -1,
     },
   },
   verification: {
-    google: 'verification-token',
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION_TOKEN || '', // Add your Google Search Console token to .env.local
   },
 };
 
@@ -135,10 +168,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${inter.variable} ${lora.variable} antialiased font-sans`}>
+        <AnimatedBackground />
         <Header />
         <main className="min-h-screen pt-20">{children}</main>
         <Footer />
-        <GeminiChatbot />
+        <ClientChatbotWrapper />
       </body>
     </html>
   );

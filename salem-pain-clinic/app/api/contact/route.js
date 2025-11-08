@@ -52,8 +52,6 @@ export async function POST(request) {
     // Send email notification using Resend
     try {
       const toEmail = process.env.CONTACT_EMAIL;
-      // console.log('📧 Attempting to send email to:', toEmail);
-      // console.log('🔑 Resend API Key exists:', !!process.env.RESEND_API_KEY);
       
       const emailResult = await resend.emails.send({
         from: 'Salem Pain Clinic <onboarding@resend.dev>', // Using Resend test domain
@@ -70,8 +68,6 @@ export async function POST(request) {
           <p><small>Submitted: ${new Date(submission.submittedAt).toLocaleString()}</small></p>
         `
       });
-      // console.log('✅ Email sent successfully to', toEmail);
-      // console.log('📨 Resend Response:', emailResult);
     } catch (emailError) {
       console.error('❌ Email sending failed:', emailError);
       console.error('Error details:', emailError.message);
@@ -91,11 +87,9 @@ export async function POST(request) {
       });
 
       if (!forwardResponse.ok) {
-        console.error('Form forward failed', await forwardResponse.text());
+        console.error('Form forward failed:', await forwardResponse.text());
         throw new Error('Forwarding failed');
       }
-    } else {
-      console.info('Contact form submission (no forward URL configured):', submission);
     }
 
     return NextResponse.json({ success: true });
