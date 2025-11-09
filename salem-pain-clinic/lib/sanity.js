@@ -36,6 +36,7 @@ export const queries = {
     title,
     doctorPhoto,
     aboutHeroImage,
+    medicalBackgroundImage,
     clinicLogo,
     clinicExterior,
     waitingArea,

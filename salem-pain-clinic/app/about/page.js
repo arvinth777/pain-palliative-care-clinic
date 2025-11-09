@@ -229,51 +229,36 @@ export default function About() {
       <section className="py-20 bg-gray-50">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Doctor Photo */}
+            {/* Medical Background Image */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              {(websiteImages?.doctorPhoto || doctorData?.profileImage) ? (
+              {websiteImages?.medicalBackgroundImage ? (
                 /* CMS Image - Shows when uploaded in Sanity */
-                <GlareWrapper
-                  glareColor="#2B5273"
-                  glareOpacity={0.4}
-                  glareSize={250}
-                  transitionDuration={600}
-                  borderRadius="1.5rem"
-                  className="relative rounded-3xl aspect-[4/5] shadow-2xl overflow-hidden"
-                >
+                <div className="relative rounded-3xl aspect-[4/5] shadow-2xl overflow-hidden">
                   <img
-                    src={urlFor(websiteImages?.doctorPhoto || doctorData?.profileImage).width(600).height(750).url()}
-                    alt="Dr. G.P. Kirupakaran"
+                    src={urlFor(websiteImages.medicalBackgroundImage).width(600).height(750).url()}
+                    alt="Medical Background"
                     className="w-full h-full object-cover"
                   />
-                </GlareWrapper>
+                </div>
               ) : (
                 /* Placeholder - Shows until photo uploaded */
-                <GlareWrapper
-                  glareColor="#2B5273"
-                  glareOpacity={0.4}
-                  glareSize={250}
-                  transitionDuration={600}
-                  borderRadius="1.5rem"
-                  className="relative bg-gradient-to-br from-gray-200 to-gray-300 rounded-3xl aspect-[4/5] shadow-2xl flex items-center justify-center overflow-hidden"
-                >
-                  <div className="absolute inset-6 rounded-[36px] bg-white/30" aria-hidden="true"></div>
+                <div className="relative bg-gradient-to-br from-primary/10 to-primary/5 rounded-3xl aspect-[4/5] shadow-2xl flex items-center justify-center overflow-hidden border-2 border-primary/20">
                   <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 px-8 text-center">
                     <div className="flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-primary to-primary-dark text-white shadow-xl">
-                      <GraduationCap className="h-20 w-20" aria-hidden="true" />
+                      <Award className="h-20 w-20" aria-hidden="true" />
                     </div>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-700 mb-1 whitespace-nowrap">{DOCTOR_FULL_NAME}</h2>
-                      <p className="text-gray-600 font-medium">MBBS, MD, DA</p>
-                      <p className="text-gray-500 text-sm mt-2">Professional Photo</p>
+                      <h3 className="text-2xl font-bold text-gray-700 mb-2">Medical Background Image</h3>
+                      <p className="text-gray-600 text-sm">Upload in Sanity CMS</p>
+                      <p className="text-gray-500 text-xs mt-2">Recommended: 600x750px</p>
                     </div>
                   </div>
-                </GlareWrapper>
+                </div>
               )}
             </motion.div>
 
