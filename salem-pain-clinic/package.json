@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "Professional medical website for Salem Pain Clinic",
   "private": true,
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "vercel-build": "next build"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
