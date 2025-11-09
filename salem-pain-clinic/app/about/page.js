@@ -88,6 +88,7 @@ export default function About() {
           blendingValue="hard-light"
           interactive={true}
           containerClassName="absolute inset-0"
+          style={{ willChange: 'transform' }}
         >
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
         </BackgroundGradientAnimation>
@@ -150,24 +151,12 @@ export default function About() {
           </div>
         </div>
 
-        {/* Mission Statement - With same gradient background */}
+        {/* Mission Statement - Static gradient for better performance */}
         <div className="relative z-20 py-20">
-          <BackgroundGradientAnimation
-            gradientBackgroundStart="rgb(43, 82, 115)"
-            gradientBackgroundEnd="rgb(15, 35, 60)"
-            firstColor="43, 82, 115"
-            secondColor="74, 144, 226"
-            thirdColor="100, 180, 255"
-            fourthColor="30, 60, 100"
-            fifthColor="43, 82, 115"
-            pointerColor="60, 120, 200"
-            size="80%"
-            blendingValue="hard-light"
-            interactive={true}
-            containerClassName="absolute inset-0"
-          >
-            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
-          </BackgroundGradientAnimation>
+          {/* Static gradient background - much better performance than animated */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#2B5273] via-[#1F3C5A] to-[#0F233C]">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
+          </div>
           
           <div className="relative z-20 container-custom">
           <div className="max-w-4xl mx-auto">
