@@ -28,7 +28,7 @@ export default function FAQ() {
     },
     {
       question: 'Do I need a referral to schedule an appointment?',
-      answer: 'While referrals are helpful and often required by insurance, we welcome both referred and self-referred patients. Please contact us to discuss your specific situation and insurance requirements.'
+      answer: 'we welcome both referred and self-referred patients. Please contact us to discuss your specific situation and insurance requirements.'
     },
     {
       question: 'How long is a typical consultation?',
@@ -57,10 +57,6 @@ export default function FAQ() {
     {
       question: 'What payment methods do you accept?',
       answer: 'We accept cash, credit/debit cards, and digital payment methods. For specific insurance questions, please contact our office directly as coverage varies by plan and procedure.'
-    },
-    {
-      question: 'Do you accept insurance?',
-      answer: 'We work with various insurance providers. Coverage depends on your specific plan and the treatments required. Please contact our office with your insurance information, and we\'ll verify your coverage and explain any out-of-pocket costs.'
     },
     {
       question: 'What is palliative care?',

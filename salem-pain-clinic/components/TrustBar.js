@@ -1,16 +1,20 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Award, Microscope } from 'lucide-react';
+import { Award, AwardIcon, Microscope } from 'lucide-react';
 
 export default function TrustBar() {
   const trustPoints = [
     {
       icon: Award,
-      text: '30+ Years Experience'
+      text: 'Chronic Pain Management'
     },
     {
-      icon: Microscope,
-      text: 'Advanced Technology'
+      icon:  AwardIcon,
+      text: 'Palliative Care'
+    },
+    {
+      icon: Award,
+      text: 'Diabetes Care'
     }
   ];
 

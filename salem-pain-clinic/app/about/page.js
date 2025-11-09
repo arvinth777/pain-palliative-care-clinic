@@ -58,6 +58,11 @@ export default function About() {
       institution: 'Madras Medical College',
       description: 'Advanced certification in anaesthesia'
     },
+    {
+      degree: 'DFID(Diabetology)', 
+      institution: 'Christian Medical College, Vellore',
+      description: 'Day-to-day management of diabetes mellitus'
+    }
   ];
 
   const expertise = [
@@ -315,7 +320,7 @@ export default function About() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {credentials.map((cred, index) => (
               <motion.div
                 key={index}
@@ -401,7 +406,7 @@ export default function About() {
               Modern Clinic & <span className="text-primary">Advanced Equipment</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Take a look at our state-of-the-art facilities and cutting-edge medical equipment
+              A photo gallery showcasing our comprehensive clinic facilities and medical equipment
             </p>
           </motion.div>
 

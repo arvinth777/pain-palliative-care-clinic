@@ -46,11 +46,27 @@ export async function POST(request) {
   try {
     const { message } = await request.json();
 
+    // Validate request
+    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+      return Response.json(
+        { response: 'Please provide a valid message.' },
+        { status: 400 }
+      );
+    }
+
     if (!process.env.GEMINI_API_KEY) {
       throw new Error('GEMINI_API_KEY is not configured');
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    // Try different model names if gemini-2.0-flash doesn't work
+    let model;
+    try {
+      model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    } catch (modelError) {
+      console.error('Model selection error:', modelError);
+      // Fallback to basic model
+      model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    }
 
     const chat = model.startChat({
       history: [
@@ -63,21 +79,59 @@ export async function POST(request) {
           parts: [{ text: 'Understood. I will act as a helpful medical assistant for Salem Pain Clinic, following all the guidelines you provided. I\'m ready to assist patients with their questions.' }],
         },
       ],
+      generationConfig: {
+        temperature: 0.7,
+        topP: 0.8,
+        maxOutputTokens: 1000,
+      },
+      safetySettings: [
+        {
+          category: 'HARM_CATEGORY_HARASSMENT',
+          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        },
+        {
+          category: 'HARM_CATEGORY_HATE_SPEECH',
+          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        },
+        {
+          category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        },
+        {
+          category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        },
+      ],
     });
 
-    const result = await chat.sendMessage(message);
+    const result = await chat.sendMessage(message.trim());
     const response = result.response.text();
 
     return Response.json({ response });
   } catch (error) {
     console.error('Chatbot API Error:', error);
-    // console.error('Error message:', error.message);
-    // console.error('Error stack:', error.stack);
-    // console.error('API Key present:', !!process.env.GEMINI_API_KEY);
+    console.error('Error message:', error.message);
+    console.error('Error details:', error?.errorDetails || 'No additional details');
+    console.error('API Key present:', !!process.env.GEMINI_API_KEY);
+    
+    // More specific error handling
+    if (error.message.includes('API key')) {
+      return Response.json(
+        { response: 'Configuration error. Please contact support.' },
+        { status: 500 }
+      );
+    }
+    
+    if (error.message.includes('quota') || error.message.includes('limit')) {
+      return Response.json(
+        { response: 'Service temporarily unavailable due to high demand. Please try again in a few minutes or call us directly at +91 9095596999.' },
+        { status: 429 }
+      );
+    }
     
     return Response.json(
       { 
-        response: `I apologize, but I'm having trouble responding right now (Error: ${error.message}). Please call us at +91 9095596999 or +91 9842798422 for immediate assistance. Our office hours are Monday-Saturday, 10 AM - 1 PM.` 
+        response: `I apologize, but I'm having trouble responding right now. Please call us at +91 9095596999 or +91 9842798422 for immediate assistance. Our office hours are Monday-Saturday, 10 AM - 1 PM.` 
       },
       { status: 500 }
     );

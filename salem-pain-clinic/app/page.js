@@ -139,7 +139,7 @@ export default function Home() {
               </h2>
               
               <p className="text-xl text-text-gray font-medium mb-6">
-                MBBS, MD, DA
+                MBBS, MD, DA, DFID
               </p>
               
               <div className="space-y-4 text-lg text-text-gray leading-relaxed">

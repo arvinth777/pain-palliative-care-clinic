@@ -167,13 +167,13 @@ export default function SpotlightHero() {
               </div>
             </div>
             
-            {/* STAT 3: Advanced Technology */}
+            {/* STAT 3: Advanced Technology (updated) */}
             <div className="flex flex-col items-center text-center">
               <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-                Advanced
+                Advance ultrasound
               </div>
               <div className="text-sm md:text-base text-white/70 leading-tight">
-                Ultrasound<br />Technology
+                and other interventional<br />technologies
               </div>
             </div>
 
