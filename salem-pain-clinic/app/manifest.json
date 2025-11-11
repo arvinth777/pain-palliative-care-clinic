@@ -1,7 +1,15 @@
 {
   "name": "Salem Pain Clinic",
   "short_name": "Salem Clinic",
+  "description": "Expert Pain Management & Palliative Care in Salem, Tamil Nadu",
+  "start_url": "/",
   "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "200x200",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
