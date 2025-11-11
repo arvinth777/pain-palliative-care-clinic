@@ -58,53 +58,19 @@ export async function POST(request) {
       throw new Error('GEMINI_API_KEY is not configured');
     }
 
-    // Try different model names if gemini-2.0-flash doesn't work
-    let model;
-    try {
-      model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    } catch (modelError) {
-      console.error('Model selection error:', modelError);
-      // Fallback to basic model
-      model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-    }
-
-    const chat = model.startChat({
-      history: [
-        {
-          role: 'user',
-          parts: [{ text: SYSTEM_PROMPT }],
-        },
-        {
-          role: 'model',
-          parts: [{ text: 'Understood. I will act as a helpful medical assistant for Salem Pain Clinic, following all the guidelines you provided. I\'m ready to assist patients with their questions.' }],
-        },
-      ],
-      generationConfig: {
-        temperature: 0.7,
-        topP: 0.8,
-        maxOutputTokens: 1000,
-      },
-      safetySettings: [
-        {
-          category: 'HARM_CATEGORY_HARASSMENT',
-          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
-        },
-        {
-          category: 'HARM_CATEGORY_HATE_SPEECH',
-          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
-        },
-        {
-          category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
-        },
-        {
-          category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
-        },
-      ],
+    // Use the model that worked in our test
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-2.0-flash'  // This model works on v1beta
     });
 
-    const result = await chat.sendMessage(message.trim());
+    // Create a comprehensive prompt instead of using chat history
+    const fullPrompt = `${SYSTEM_PROMPT}
+
+User Question: ${message.trim()}
+
+Please provide a helpful, compassionate response following the guidelines above.`;
+
+    const result = await model.generateContent(fullPrompt);
     const response = result.response.text();
 
     return Response.json({ response });

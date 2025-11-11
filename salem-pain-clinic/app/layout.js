@@ -49,6 +49,12 @@ export const metadata = {
     apple: [
       { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
     ],
+    other: [
+      {
+        rel: 'apple-touch-icon-precomposed',
+        url: '/apple-icon.png',
+      },
+    ],
   },
   openGraph: {
     title: 'Salem Pain Clinic | Expert Pain Management in Salem, Tamil Nadu',
@@ -63,6 +69,12 @@ export const metadata = {
         width: 1200,
         height: 630,
         alt: 'Salem Pain Clinic - Expert Pain Management',
+      },
+      {
+        url: 'https://salempainclinic.com/images/logo.png',
+        width: 200,
+        height: 200,
+        alt: 'Salem Pain Clinic Logo',
       },
     ],
   },
@@ -93,6 +105,13 @@ const jsonLdMedicalBusiness = {
   '@type': 'MedicalBusiness',
   name: 'Salem Pain Clinic',
   description: 'Pain management and palliative care clinic in Salem, Tamil Nadu',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://salempainclinic.com/images/logo.png',
+    width: 200,
+    height: 200
+  },
+  image: 'https://salempainclinic.com/images/logo.png',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '108, Omalur Main Rd, near ANS divyam, Swarnapuri Annexe',
@@ -108,6 +127,7 @@ const jsonLdMedicalBusiness = {
   },
   url: 'https://salempainclinic.com',
   telephone: ['+91-9842798422', '+91-9095596999'],
+  email: 'contact@salempainclinic.com',
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -115,15 +135,21 @@ const jsonLdMedicalBusiness = {
     closes: '13:00'
   },
   priceRange: '₹₹',
-  medicalSpecialty: ['Pain Management', 'Anaesthesiology', 'Palliative Medicine']
+  medicalSpecialty: ['Pain Management', 'Anaesthesiology', 'Palliative Medicine'],
+  founder: {
+    '@type': 'Person',
+    name: DOCTOR_FULL_NAME,
+    jobTitle: 'Chief Medical Officer'
+  }
 };
 
 const jsonLdPhysician = {
   '@context': 'https://schema.org',
   '@type': 'Physician',
+  '@id': 'https://salempainclinic.com/#physician',
   name: DOCTOR_FULL_NAME,
   description: 'Leading pain management specialist in Salem with 30+ years experience',
-  medicalSpecialty: 'Pain Management, Anaesthesiology, Palliative Care',
+  medicalSpecialty: ['Pain Management', 'Anaesthesiology', 'Palliative Care'],
   alumniOf: [
     {
       '@type': 'EducationalOrganization',
@@ -142,7 +168,33 @@ const jsonLdPhysician = {
   qualifications: ['MBBS', 'MD', 'DA'],
   worksFor: {
     '@type': 'MedicalBusiness',
-    name: 'Salem Pain Clinic'
+    name: 'Salem Pain Clinic',
+    url: 'https://salempainclinic.com'
+  },
+  knowsAbout: ['Chronic Pain Management', 'Cancer Pain Relief', 'Interventional Pain Procedures', 'Palliative Care']
+};
+
+const jsonLdOrganization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Salem Pain Clinic',
+  url: 'https://salempainclinic.com',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://salempainclinic.com/images/logo.png',
+    width: 200,
+    height: 200,
+    contentUrl: 'https://salempainclinic.com/images/logo.png'
+  },
+  image: 'https://salempainclinic.com/images/logo.png',
+  sameAs: [
+    'https://www.facebook.com/salempainclinic',
+    'https://twitter.com/salempainclinic'
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+91-9842798422',
+    contactType: 'customer service'
   }
 };
 
@@ -165,6 +217,13 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLdPhysician)
+          }}
+        />
+        <Script
+          id="schema-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdOrganization)
           }}
         />
       </head>
