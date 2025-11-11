@@ -144,20 +144,20 @@ export default function Home() {
               
               <div className="space-y-4 text-lg text-text-gray leading-relaxed">
                 <p>
-                  {DOCTOR_FULL_NAME} is Salem&apos;s leading anaesthetist with over 
+                  {DOCTOR_FULL_NAME} is Salem&apos;s renowned anaesthetist with over 
                   <span className="text-gold-600 font-semibold"> 30 years</span> of 
-                  dedicated experience in pain management and palliative care.
+                  dedicated experience in Anaethesia, pain management and palliative care.
                 </p>
                 
                 <p>
                   A distinguished graduate of the prestigious Christian Medical College 
                   (CMC) Vellore, Dr. Kirupakaran has established himself as a trusted 
-                  name in interventional pain management throughout Tamil Nadu.
+                  name in Anaethesia and interventional pain management in Salem.
                 </p>
                 
                 <p>
-                  With three decades of clinical expertise and advanced ultrasound technology, 
-                  Dr. Kirupakaran has helped thousands of patients reclaim their quality of life 
+                  With three decades of clinical expertise and advanced ultrasound and other interventional 
+                  technology, Dr. Kirupakaran has helped thousands of patients reclaim their quality of life 
                   through innovative pain management techniques.
                 </p>
               </div>

@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import ClientChatbotWrapper from '../components/ClientChatbotWrapper';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/next';
 
 // Force dynamic rendering to avoid Radix UI SSR issues
 export const dynamic = 'force-dynamic';
@@ -173,6 +174,7 @@ export default function RootLayout({ children }) {
         <main className="min-h-screen">{children}</main>
         <Footer />
         <ClientChatbotWrapper />
+        <Analytics />
       </body>
     </html>
   );
