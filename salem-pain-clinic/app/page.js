@@ -170,25 +170,25 @@ export default function Home() {
               className="relative"
             >
               <div className="relative w-full aspect-[4/3] lg:aspect-[5/4] rounded-2xl overflow-hidden shadow-2xl">
-                <AnimatePresence mode="wait">
+                {heroImages.map((image, index) => (
                   <motion.div
-                    key={currentImageIndex}
+                    key={index}
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
                     transition={{ duration: 0.7 }}
                     className="absolute inset-0"
+                    style={{ zIndex: index === currentImageIndex ? 10 : 0 }}
                   >
                     <Image
-                      src={heroImages[currentImageIndex].src}
-                      alt={heroImages[currentImageIndex].alt}
+                      src={image.src}
+                      alt={image.alt}
                       fill
                       className="object-cover object-center"
-                      priority
+                      priority={index === 0}
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </motion.div>
-                </AnimatePresence>
+                ))}
                 
                 {/* Carousel Indicators */}
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
@@ -342,7 +342,7 @@ export default function Home() {
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map((service, index) => (
-              <FadeInUp key={index} delay={index * 0.06}>
+              <FadeInUp key={index} delay={index * 0.06} className="h-full">
                 <ServiceCard
                   icon={service.icon}
                   title={service.title}
@@ -386,8 +386,8 @@ export default function Home() {
               'Sports Injuries',
             ].map((condition, index) => (
               <FadeInUp key={index} delay={index * 0.05} className="h-full">
-                <div className="flex items-center gap-3 bg-gray-50 hover:bg-primary/5 border border-gray-100 hover:border-primary/20 rounded-xl p-4 transition-all duration-300 group cursor-default h-full">
-                  <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" weight="fill" />
+                <div className="flex items-start gap-3 bg-gray-50 hover:bg-primary/5 border border-gray-100 hover:border-primary/20 rounded-xl p-4 transition-all duration-300 group cursor-default h-full">
+                  <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" weight="fill" />
                   <h3 className="font-semibold text-gray-800 group-hover:text-primary transition-colors text-sm sm:text-base">
                     {condition}
                   </h3>

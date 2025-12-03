@@ -168,23 +168,24 @@ export default function About() {
             >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <div className="aspect-[4/5] relative">
-                  <AnimatePresence mode="wait">
+                  {medicalBgImages.map((image, index) => (
                     <motion.div
-                      key={currentMedicalBgIndex}
+                      key={index}
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
+                      animate={{ opacity: index === currentMedicalBgIndex ? 1 : 0 }}
                       transition={{ duration: 0.7 }}
                       className="absolute inset-0"
+                      style={{ zIndex: index === currentMedicalBgIndex ? 10 : 0 }}
                     >
                       <Image
-                        src={medicalBgImages[currentMedicalBgIndex].src}
-                        alt={medicalBgImages[currentMedicalBgIndex].alt}
+                        src={image.src}
+                        alt={image.alt}
                         fill
                         className="object-cover"
+                        priority={index === 0}
                       />
                     </motion.div>
-                  </AnimatePresence>
+                  ))}
                   
                   {/* Carousel Indicators */}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
