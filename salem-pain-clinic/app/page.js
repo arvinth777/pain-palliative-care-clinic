@@ -18,6 +18,7 @@ import {
   Medal,
   UserFocus,
   Waves,
+  CheckCircle,
 } from 'phosphor-react';
 import { Button } from '@/components/ui/button';
 import ServiceCard from '@/components/ServiceCard';
@@ -349,6 +350,48 @@ export default function Home() {
                   link={service.link}
                   featured={service.featured}
                 />
+              </FadeInUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Conditions We Treat - SEO Focused Section */}
+      <section className="py-16 bg-white">
+        <div className="container-custom">
+          <FadeInUp>
+            <div className="text-center mb-12 max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 tracking-tight">
+                Conditions We Treat
+              </h2>
+              <p className="text-base text-gray-600 leading-relaxed">
+                We provide specialized care for a wide range of chronic pain conditions, helping you find relief and restore mobility.
+              </p>
+            </div>
+          </FadeInUp>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {[
+              'Back Pain',
+              'Knee Pain',
+              'Neck Pain',
+              'Joint Pains',
+              'Shoulder Pains',
+              'Headache & Migraine',
+              'Hand Pain',
+              'Spine Pain',
+              'Arthritis',
+              'Sciatica',
+              'Fibromyalgia',
+              'Sports Injuries',
+            ].map((condition, index) => (
+              <FadeInUp key={index} delay={index * 0.05}>
+                <div className="flex items-center gap-3 bg-gray-50 hover:bg-primary/5 border border-gray-100 hover:border-primary/20 rounded-xl p-4 transition-all duration-300 group cursor-default">
+                  <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" weight="fill" />
+                  <h3 className="font-semibold text-gray-800 group-hover:text-primary transition-colors">
+                    {condition}
+                  </h3>
+                </div>
               </FadeInUp>
             ))}
           </div>

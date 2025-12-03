@@ -170,10 +170,12 @@ export default function Services() {
                 <div>
                   <h4 className="font-bold text-primary mb-3">Conditions We Treat</h4>
                   <ul className="space-y-2 text-text-gray">
-                    <li>• Lower & upper back pain</li>
-                    <li>• Arthritis (osteo & rheumatoid)</li>
-                    <li>• Fibromyalgia</li>
-                    <li>• Complex regional pain syndrome</li>
+                    <li>• Back & Spine Pain</li>
+                    <li>• Neck & Shoulder Pain</li>
+                    <li>• Knee & Joint Pains</li>
+                    <li>• Headaches & Migraines</li>
+                    <li>• Hand & Wrist Pain</li>
+                    <li>• Arthritis & Fibromyalgia</li>
                   </ul>
                 </div>
                 <div>
