@@ -93,8 +93,8 @@ export default function PrivacyPolicyPage() {
               <p className="mt-4 text-text-gray">
                 You may request access to your clinical records, ask for corrections, or withdraw consent for
                 communication at any time. Submit your request at the clinic or email
-                <a className="ml-1 font-semibold text-primary hover:text-primary-dark" href="mailto:care@salempainclinic.com">
-                  care@salempainclinic.com
+                <a className="ml-1 font-semibold text-primary hover:text-primary-dark" href="mailto:care@thesalempainclinic.com">
+                  care@thesalempainclinic.com
                 </a>
                 . We will respond within 7 working days.
               </p>

@@ -157,7 +157,7 @@ export default function Footer() {
             {/* Copyright */}
             <div className="text-center md:text-left">
               <p className="text-white/70 text-sm font-medium">
-                © 2024 Salem Pain Clinic. All rights reserved.
+                © 2025 Salem Pain Clinic. All rights reserved.
               </p>
               <p className="text-white/50 text-xs mt-1">
                 {DOCTOR_FULL_NAME}, MBBS, DA, CMC Vellore
@@ -165,7 +165,7 @@ export default function Footer() {
             </div>
             
             {/* Policy Links */}
-            <div className="flex space-x-6 text-sm">
+            <div className="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6 text-sm">
               <Link 
                 href="/privacy" 
                 className="text-white/60 hover:text-primary-light transition-colors font-medium"

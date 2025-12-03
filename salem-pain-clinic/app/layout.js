@@ -3,23 +3,22 @@ import './globals.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ClientChatbotWrapper from '../components/ClientChatbotWrapper';
-import AnimatedBackground from '../components/AnimatedBackground';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/next';
 
 // Force dynamic rendering to avoid Radix UI SSR issues
 export const dynamic = 'force-dynamic';
 
-const inter = Inter({ 
-  subsets: ['latin'], 
-  weight: ['400', '500'], 
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500'],
   variable: '--font-body',
   display: 'swap',
   fallback: ['system-ui', 'arial']
 });
-const lora = Lora({ 
-  subsets: ['latin'], 
-  weight: ['600', '700'], 
+const lora = Lora({
+  subsets: ['latin'],
+  weight: ['600', '700'],
   variable: '--font-heading',
   display: 'swap',
   fallback: ['Georgia', 'serif']
@@ -39,7 +38,7 @@ export const metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: 'https://salempainclinic.com',
+    canonical: 'https://www.thesalempainclinic.com',
   },
   icons: {
     icon: [
@@ -59,19 +58,19 @@ export const metadata = {
   openGraph: {
     title: 'Salem Pain Clinic | Expert Pain Management in Salem, Tamil Nadu',
     description: `30+ years of specialized pain management & palliative care. ${DOCTOR_FULL_NAME} offers advanced ultrasound-guided procedures in Salem.`,
-    url: 'https://salempainclinic.com',
+    url: 'https://www.thesalempainclinic.com',
     siteName: 'Salem Pain Clinic',
     locale: 'en_IN',
     type: 'website',
     images: [
       {
-        url: 'https://salempainclinic.com/og-image.jpg',
+        url: 'https://www.thesalempainclinic.com/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Salem Pain Clinic - Expert Pain Management',
       },
       {
-        url: 'https://salempainclinic.com/images/logo.png',
+        url: 'https://www.thesalempainclinic.com/images/logo.png',
         width: 200,
         height: 200,
         alt: 'Salem Pain Clinic Logo',
@@ -82,7 +81,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Salem Pain Clinic | Expert Pain Management',
     description: '30+ years of specialized pain management & palliative care in Salem, Tamil Nadu',
-    images: ['https://salempainclinic.com/og-image.jpg'],
+    images: ['https://www.thesalempainclinic.com/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -107,11 +106,11 @@ const jsonLdMedicalBusiness = {
   description: 'Pain management and palliative care clinic in Salem, Tamil Nadu',
   logo: {
     '@type': 'ImageObject',
-    url: 'https://salempainclinic.com/images/logo.png',
+    url: 'https://www.thesalempainclinic.com/images/logo.png',
     width: 200,
     height: 200
   },
-  image: 'https://salempainclinic.com/images/logo.png',
+  image: 'https://www.thesalempainclinic.com/images/logo.png',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '108, Omalur Main Rd, near ANS divyam, Swarnapuri Annexe',
@@ -125,9 +124,9 @@ const jsonLdMedicalBusiness = {
     latitude: 11.6806,
     longitude: 78.1407
   },
-  url: 'https://salempainclinic.com',
+  url: 'https://www.thesalempainclinic.com',
   telephone: ['+91-9842798422', '+91-9095596999'],
-  email: 'contact@salempainclinic.com',
+  email: 'contact@thesalempainclinic.com',
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -146,7 +145,7 @@ const jsonLdMedicalBusiness = {
 const jsonLdPhysician = {
   '@context': 'https://schema.org',
   '@type': 'Physician',
-  '@id': 'https://salempainclinic.com/#physician',
+  '@id': 'https://www.thesalempainclinic.com/#physician',
   name: DOCTOR_FULL_NAME,
   description: 'Leading pain management specialist in Salem with 30+ years experience',
   medicalSpecialty: ['Pain Management', 'Anaesthesiology', 'Palliative Care'],
@@ -169,7 +168,7 @@ const jsonLdPhysician = {
   worksFor: {
     '@type': 'MedicalBusiness',
     name: 'Salem Pain Clinic',
-    url: 'https://salempainclinic.com'
+    url: 'https://www.thesalempainclinic.com'
   },
   knowsAbout: ['Chronic Pain Management', 'Cancer Pain Relief', 'Interventional Pain Procedures', 'Palliative Care']
 };
@@ -178,15 +177,15 @@ const jsonLdOrganization = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Salem Pain Clinic',
-  url: 'https://salempainclinic.com',
+  url: 'https://www.thesalempainclinic.com',
   logo: {
     '@type': 'ImageObject',
-    url: 'https://salempainclinic.com/images/logo.png',
+    url: 'https://www.thesalempainclinic.com/images/logo.png',
     width: 200,
     height: 200,
-    contentUrl: 'https://salempainclinic.com/images/logo.png'
+    contentUrl: 'https://www.thesalempainclinic.com/images/logo.png'
   },
-  image: 'https://salempainclinic.com/images/logo.png',
+  image: 'https://www.thesalempainclinic.com/images/logo.png',
   sameAs: [
     'https://www.facebook.com/salempainclinic',
     'https://twitter.com/salempainclinic'
@@ -200,10 +199,10 @@ const jsonLdOrganization = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://salempainclinic.com" />
+        <link rel="canonical" href="https://www.thesalempainclinic.com" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Script
           id="schema-medical-business"
@@ -228,7 +227,6 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${inter.variable} ${lora.variable} antialiased font-sans`}>
-        <AnimatedBackground />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

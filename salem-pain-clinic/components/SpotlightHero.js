@@ -37,17 +37,9 @@ export default function SpotlightHero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white tracking-tight leading-tight">
-                  <span className="font-bold block">Regain Your Life</span>
-                  <TextType
-                    text="from Chronic Pain"
-                    as="span"
-                    className="font-heading font-semibold block text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-                    typingSpeed={100}
-                    loop={false}
-                    showCursor={false}
-                    initialDelay={500}
-                  />
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-lora font-bold text-white tracking-tight leading-relaxed mb-6">
+                  <span className="block font-bold">Expert Pain Clinic in Salem:</span>
+                  <span className="block font-heading font-semibold text-white/90 mt-2">Regain Your Life from Chronic Pain</span>
                 </h1>
               </motion.div>
 
@@ -56,11 +48,10 @@ export default function SpotlightHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl"
+                className="text-base md:text-lg text-white/80 leading-relaxed max-w-2xl mb-8"
               >
-                Specialized pain management and palliative care in Salem. Led by{' '}
-                <span className="text-white font-semibold">Dr. G.P. Kirupakaran</span>
-                , a trusted expert with over 30 years of experience.
+                Providing specialized pain management and palliative care in Salem.<br />
+                Led by <span className="text-white font-semibold">Dr. G.P. Kirupakaran</span>, a trusted expert with over 30 years of experience.
               </motion.p>
 
               {/* CTA buttons */}
@@ -139,41 +130,47 @@ export default function SpotlightHero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1.1 }}
-        className="relative z-10 pb-32"
+  className="relative z-10 pb-32 -mt-8"
       >
         <div className="container-custom px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             
             {/* STAT 1: Years Experience with Count-Up */}
             <div className="flex flex-col items-center text-center">
-              <CountUpNumber
-                target={30}
-                suffix="+"
-                className="text-4xl md:text-5xl font-bold text-white mb-2"
-                duration={2.5}
-              />
-              <div className="text-sm md:text-base text-white/70 leading-tight">
-                Years<br />Experience
+              <div className="rounded-2xl p-6 flex flex-col items-center">
+                <CountUpNumber
+                  target={30}
+                  suffix="+"
+                  className="text-4xl md:text-5xl font-bold text-white mb-2"
+                  duration={2.5}
+                />
+                <div className="text-sm md:text-base text-white/70 leading-tight">
+                  Years<br />Experience
+                </div>
               </div>
             </div>
             
             {/* STAT 2: Personalized Plans */}
             <div className="flex flex-col items-center text-center">
-              <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-                Personalized
-              </div>
-              <div className="text-sm md:text-base text-white/70 leading-tight">
-                Treatment<br />Plans
+              <div className="rounded-2xl p-6 flex flex-col items-center">
+                <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+                  Personalized
+                </div>
+                <div className="text-sm md:text-base text-white/70 leading-tight">
+                  Treatment<br />Plans
+                </div>
               </div>
             </div>
             
             {/* STAT 3: Advanced Technology (updated) */}
             <div className="flex flex-col items-center text-center">
-              <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-                Advance ultrasound
-              </div>
-              <div className="text-sm md:text-base text-white/70 leading-tight">
-                and other interventional<br />technologies
+              <div className="rounded-2xl p-6 flex flex-col items-center">
+                <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+                  Advance ultrasound
+                </div>
+                <div className="text-sm md:text-base text-white/70 leading-tight">
+                  and other interventional<br />technologies
+                </div>
               </div>
             </div>
 
@@ -186,15 +183,15 @@ export default function SpotlightHero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20"
+  className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
       >
         <div className="flex flex-col items-center gap-2 text-white/50">
           <span className="text-xs uppercase tracking-wider font-medium">Scroll Down</span>
           <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2">
             <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-1.5 h-1.5 rounded-full bg-white/50"
+              animate={{ y: [0, 18, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="w-2 h-2 rounded-full bg-white/70 animate-bounce"
             />
           </div>
         </div>

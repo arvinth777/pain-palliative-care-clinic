@@ -28,7 +28,7 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 60 * 60 * 24, // 24 hours cache
     remotePatterns: [
       {
         protocol: 'https',
@@ -39,15 +39,28 @@ const nextConfig = {
   },
   // Enable compression
   compress: true,
+  // Power performance optimizations
+  poweredByHeader: false, // Remove X-Powered-By header for security/performance
+  reactStrictMode: true,
   // Experimental features to fix Radix UI SSR issues
   experimental: {
-    optimizePackageImports: ['@radix-ui/react-label', '@radix-ui/react-accordion', '@radix-ui/react-scroll-area'],
+    optimizePackageImports: ['@radix-ui/react-label', '@radix-ui/react-accordion', '@radix-ui/react-scroll-area', 'lucide-react', 'framer-motion'],
   },
   async headers() {
     return [
       {
         source: '/(.*)',
         headers: securityHeaders,
+      },
+      // Cache static assets longer
+      {
+        source: '/images/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
       },
     ];
   },

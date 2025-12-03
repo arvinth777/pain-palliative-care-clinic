@@ -59,7 +59,7 @@ export default function Services() {
   return (
     <>
       {/* Minimal Professional Hero */}
-      <section className="relative bg-gradient-to-b from-gray-50 to-white pt-32 pb-16">
+      <section className="relative bg-gradient-to-b from-gray-50 to-white pt-24 md:pt-32 pb-12 md:pb-16">
         <div className="container-custom">
           <motion.div 
             className="max-w-4xl"
@@ -72,11 +72,11 @@ export default function Services() {
               Comprehensive Pain Management
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-4 md:mb-6 tracking-tight">
               Our Services
             </h1>
             
-            <p className="text-xl text-text-gray leading-relaxed max-w-3xl">
+            <p className="text-base sm:text-lg md:text-xl text-text-gray leading-relaxed max-w-3xl">
               Evidence-based treatments delivered with advanced ultrasound technology and over 30 years of clinical expertise.
             </p>
           </motion.div>
@@ -278,7 +278,7 @@ export default function Services() {
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400/10 rounded-full translate-y-1/2 -translate-x-1/2" />
               
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                   Ready to Start Your Treatment?
                 </h2>
                 <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">

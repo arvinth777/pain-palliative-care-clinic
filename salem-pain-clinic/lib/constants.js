@@ -22,7 +22,7 @@ export const CLINIC_HOURS_SHORT = 'Mon-Sat, 10 AM - 1 PM';
 export const CLINIC_CLOSED = 'Closed Sundays';
 
 // Website
-export const WEBSITE_URL = 'https://salempainclinic.com';
+export const WEBSITE_URL = 'https://www.thesalempainclinic.com';
 
 // Google Maps
 export const GOOGLE_MAPS_URL = 'https://www.google.com/maps/place/Salem+pain+and+palliative+care+clinic/@11.679437241888115,78.12624407549251,17z/data=!3m1!4b1!4m6!3m5!1s0x3babf1f588bc086f:0x77d230e475f745d9!8m2!3d11.679437241888115!4d78.12624407549251!16s%2Fg%2F11c5q5p5qg';

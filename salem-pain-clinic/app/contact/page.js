@@ -66,7 +66,7 @@ export default function Contact() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary-dark to-[#1A2533] py-32">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary-dark to-[#1A2533] pt-24 pb-16 md:py-32">
         <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent"></div>
         
         <motion.div 
@@ -75,10 +75,10 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-4 md:mb-6 tracking-tight text-white">
             Contact Us
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto px-4">
             Get in touch to schedule your consultation or ask any questions
           </p>
         </motion.div>
@@ -322,7 +322,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <iframe
-              src="https://www.google.com/maps?q=Salem+Pain+Clinic+108+Omalur+Main+Road+Salem+Tamil+Nadu+636004&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.8547!2d78.1407!3d11.6806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSalem%20Pain%20and%20Palliative%20Care%20Clinic!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
               width="100%"
               height="500"
               style={{ border: 0 }}

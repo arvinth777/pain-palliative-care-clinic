@@ -64,13 +64,13 @@ export default function GeminiChatbot() {
   const handleSend = async (e, suggestionText = null) => {
     e?.preventDefault();
     const messageText = suggestionText || input.trim();
-    
+
     if (!messageText || isLoading) return;
 
     // Hide suggestions after first user message
     setShowSuggestions(false);
     setInput('');
-    
+
     // Add user message
     setMessages(prev => [...prev, { role: 'user', content: messageText }]);
     setIsLoading(true);
@@ -85,7 +85,7 @@ export default function GeminiChatbot() {
       });
 
       const data = await response.json();
-      
+
       // Check if we got a response (even if status is 500)
       if (data.response) {
         setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
@@ -94,9 +94,9 @@ export default function GeminiChatbot() {
       }
     } catch (error) {
       console.error('Error:', error);
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: 'I apologize, but I\'m having trouble responding right now. Please call us at +91 9095596999 or +91 9842798422 for immediate assistance. Our office hours are Monday-Saturday, 10:00 AM - 1:00 PM.' 
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'I apologize, but I\'m having trouble responding right now. Please call us at +91 9095596999 or +91 9842798422 for immediate assistance. Our office hours are Monday-Saturday, 10:00 AM - 1:00 PM.'
       }]);
     } finally {
       setIsLoading(false);
@@ -143,12 +143,12 @@ export default function GeminiChatbot() {
         <Button
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-16 h-16 rounded-full shadow-2xl hover:scale-110 transition-all duration-300"
+          className="relative w-14 h-14 rounded-full shadow-2xl hover:scale-110 transition-all duration-300"
         >
           {isOpen ? (
-            <X className="w-10 h-10" />
+            <X className="w-7 h-7" />
           ) : (
-            <MessageCircle className="w-10 h-10" />
+            <MessageCircle className="w-7 h-7" />
           )}
           {/* Green Online Indicator */}
           {!isOpen && (
@@ -170,9 +170,9 @@ export default function GeminiChatbot() {
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className="fixed bottom-24 right-6 z-50 w-full max-w-md"
           >
-            <Card className="border-2 shadow-2xl rounded-3xl overflow-hidden">
+            <Card className="border-white/40 shadow-2xl rounded-3xl overflow-hidden bg-white/85 backdrop-blur-xl">
               {/* Header */}
-              <CardHeader className="bg-gradient-to-r from-primary to-primary-dark text-white">
+              <CardHeader className="bg-gradient-to-r from-primary/90 to-primary-dark/90 text-white backdrop-blur-md">
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle className="text-lg font-bold">Salem Pain Clinic</CardTitle>
@@ -202,11 +202,10 @@ export default function GeminiChatbot() {
                         className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div
-                          className={`max-w-[85%] rounded-3xl px-4 py-3 ${
-                            message.role === 'user'
-                              ? 'bg-primary text-white'
-                              : 'bg-gray-100 text-gray-900 border border-gray-200'
-                          }`}
+                          className={`max-w-[85%] rounded-3xl px-4 py-3 ${message.role === 'user'
+                              ? 'bg-primary text-white shadow-md'
+                              : 'bg-white/60 text-gray-900 border border-white/50 shadow-sm backdrop-blur-sm'
+                            }`}
                         >
                           <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
                         </div>
@@ -228,7 +227,7 @@ export default function GeminiChatbot() {
                               key={idx}
                               onClick={() => handleSuggestionClick(suggestion)}
                               disabled={isLoading}
-                              className="text-xs bg-white border-2 border-primary/30 text-primary px-3 py-2 rounded-full hover:bg-primary hover:text-white hover:border-primary transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
+                              className="text-xs bg-white/60 border border-white/50 text-primary px-3 py-2 rounded-full hover:bg-primary hover:text-white hover:border-primary transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md backdrop-blur-sm"
                             >
                               {suggestion}
                             </button>
@@ -236,14 +235,14 @@ export default function GeminiChatbot() {
                         </div>
                       </motion.div>
                     )}
-                    
+
                     {isLoading && (
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         className="flex justify-start"
                       >
-                        <div className="bg-gray-100 border border-gray-200 rounded-3xl px-4 py-3 flex items-center space-x-2">
+                        <div className="bg-white/60 border border-white/50 rounded-3xl px-4 py-3 flex items-center space-x-2 shadow-sm backdrop-blur-sm">
                           <Loader2 className="w-4 h-4 animate-spin text-primary" />
                           <span className="text-sm text-gray-600">Thinking...</span>
                         </div>
@@ -255,20 +254,20 @@ export default function GeminiChatbot() {
               </CardContent>
 
               {/* Input Footer */}
-              <CardFooter className="border-t bg-gray-50 flex-col p-4 space-y-3">
+              <CardFooter className="border-t border-white/20 bg-white/40 backdrop-blur-md flex-col p-4 space-y-3">
                 <form onSubmit={handleSend} className="flex w-full space-x-2">
                   <Input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your message..."
-                    className="flex-1 rounded-full border-2 focus:border-primary"
+                    className="flex-1 rounded-full border-white/50 bg-white/60 focus:bg-white focus:border-primary transition-all duration-300"
                     disabled={isLoading}
                   />
                   <Button
                     type="submit"
                     size="icon"
                     disabled={!input.trim() || isLoading}
-                    className="rounded-full flex-shrink-0 w-10 h-10"
+                    className="rounded-full flex-shrink-0 w-10 h-10 shadow-lg"
                   >
                     <Send className="w-4 h-4" />
                   </Button>

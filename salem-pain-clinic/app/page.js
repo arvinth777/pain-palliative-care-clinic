@@ -1,11 +1,10 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
-  CaretDown,
-  CheckCircle,
   Clock,
   Phone,
   MapPin,
@@ -15,12 +14,13 @@ import {
   Heartbeat,
   Leaf,
   ShieldPlus,
-  Target,
   Syringe,
+  Medal,
+  UserFocus,
+  Waves,
 } from 'phosphor-react';
+import { Button } from '@/components/ui/button';
 import ServiceCard from '@/components/ServiceCard';
-import SpotlightHero from '@/components/SpotlightHero';
-import TrustBar from '@/components/TrustBar';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import GlareWrapper from '@/components/ui/glare-wrapper';
 import FadeInUp from '@/components/FadeInUp';
@@ -28,19 +28,24 @@ import FadeInUp from '@/components/FadeInUp';
 export default function Home() {
   const DOCTOR_FULL_NAME = 'Dr.\u00A0G.P.\u00A0Kirupakaran';
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-  };
+  // Hero carousel images
+  const heroImages = [
+    { src: '/images/logo.png', alt: 'Salem Pain Clinic' },
+    { src: '/images/Gemini_Generated_Image_w22939w22939w229 (1).png', alt: 'Patient Care' },
+    { src: '/images/Screenshot 2025-12-03 at 19.37.54.png', alt: 'Modern Medical Equipment' },
+    { src: '/images/procedure-1.png', alt: 'Medical Procedure' },
+  ];
 
-  const staggerChildren = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Auto-advance carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 4000); // Change image every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   const services = [
     {
@@ -82,128 +87,261 @@ export default function Home() {
     }
   ];
 
+  const trustIndicators = [
+    {
+      icon: Medal,
+      title: '30+ Years',
+      subtitle: 'Experience',
+      description: 'Specialized pain management and palliative care expertise'
+    },
+    {
+      icon: UserFocus,
+      title: 'Personalized',
+      subtitle: 'Treatment Plans',
+      description: 'Customized care tailored to your unique needs'
+    },
+    {
+      icon: Waves,
+      title: 'Advanced',
+      subtitle: 'Ultrasound',
+      description: 'State-of-the-art ultrasound-guided procedures'
+    }
+  ];
+
   return (
     <>
-      {/* Hero Section with Spotlight Effect */}
-      <SpotlightHero />
+      {/* Hero Section - Matching Reference Design */}
+      <section className="relative pt-24 md:pt-28 lg:pt-32 pb-6 overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#e8f4fc] via-[#f5faff] to-white -z-10"></div>
+        
+        {/* Subtle dot pattern */}
+        <div className="absolute inset-0 -z-10 opacity-30" style={{
+          backgroundImage: 'radial-gradient(circle, #cddff0 1px, transparent 1px)',
+          backgroundSize: '24px 24px'
+        }}></div>
 
-      {/* Trust Bar - Clean credibility section */}
-      <TrustBar />
+        <div className="container-custom">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column: Text Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="max-w-xl"
+            >
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-[#1a3a5c] leading-[1.15] mb-3 font-heading">
+                <span className="italic">Regain Your Life</span>
+                <br />
+                from{' '}
+                <span className="text-primary italic">Chronic Pain.</span>
+              </h1>
 
-      {/* About Preview Section */}
-      <section className="section-padding bg-[#F8F9FA]">
+              <p className="text-base sm:text-lg md:text-xl text-primary font-semibold mb-4">
+                Targeted Pain Relief for a Fuller Life
+              </p>
+
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed max-w-md">
+                Interventional Expertise & Personalized Care from Salem&apos;s Trusted Specialist.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button asChild size="lg" className="bg-primary hover:bg-primary-dark text-white font-semibold px-5 sm:px-6 py-4 sm:py-5 rounded-lg shadow-md hover:shadow-lg transition-all text-sm sm:text-base">
+                  <Link href="/contact">
+                    Schedule a Consultation
+                  </Link>
+                </Button>
+
+                <Button asChild variant="outline" size="lg" className="bg-white border border-gray-300 text-gray-700 hover:border-primary hover:text-primary font-semibold px-5 sm:px-6 py-4 sm:py-5 rounded-lg transition-all text-sm sm:text-base">
+                  <Link href="/services">
+                    Explore Treatments
+                  </Link>
+                </Button>
+              </div>
+            </motion.div>
+
+            {/* Right Column: Image Carousel */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="relative w-full aspect-[4/3] lg:aspect-[5/4] rounded-2xl overflow-hidden shadow-2xl">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentImageIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.7 }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={heroImages[currentImageIndex].src}
+                      alt={heroImages[currentImageIndex].alt}
+                      fill
+                      className="object-cover object-center"
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+                
+                {/* Carousel Indicators */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                  {heroImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentImageIndex 
+                          ? 'bg-white w-6' 
+                          : 'bg-white/50 hover:bg-white/75'
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Indicators Section - Cards below hero */}
+      <section className="py-12 bg-gradient-to-b from-white to-[#f8fbff]">
         <div className="container-custom">
           <motion.div 
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
-            {/* Image Column */}
-            <motion.div 
-              className="relative"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="relative max-w-md mx-auto">
-                <div className="absolute inset-0 rounded-3xl bg-primary-subtle blur-2xl opacity-70" aria-hidden="true"></div>
-                <GlareWrapper
-                  glareColor="#2B5273"
-                  glareOpacity={0.4}
-                  glareSize={250}
-                  transitionDuration={600}
-                  borderRadius="1.5rem"
-                  className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/70"
-                >
-                  <Image
-                    src="/images/dr-kirupakaran.jpg"
-                    alt="Dr. G.P. Kirupakaran"
-                    width={640}
-                    height={760}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
-                </GlareWrapper>
-              </div>
-            </motion.div>
-
-            {/* Text Column */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 tracking-tight">
-                Meet {DOCTOR_FULL_NAME}
-              </h2>
-              
-              <p className="text-xl text-text-gray font-medium mb-6">
-                MBBS, MD, DA, DFID
-              </p>
-              
-              <div className="space-y-4 text-lg text-text-gray leading-relaxed">
-                <p>
-                  {DOCTOR_FULL_NAME} is Salem&apos;s renowned anaesthetist with over 
-                  <span className="text-gold-600 font-semibold"> 30 years</span> of 
-                  dedicated experience in Anaethesia, pain management and palliative care.
-                </p>
-                
-                <p>
-                  A distinguished graduate of the prestigious Christian Medical College 
-                  (CMC) Vellore, Dr. Kirupakaran has established himself as a trusted 
-                  name in Anaethesia and interventional pain management in Salem.
-                </p>
-                
-                <p>
-                  With three decades of clinical expertise and advanced ultrasound and other interventional 
-                  technology, Dr. Kirupakaran has helped thousands of patients reclaim their quality of life 
-                  through innovative pain management techniques.
-                </p>
-              </div>
-              
-              <Link 
-                href="/about" 
-                className="btn-primary inline-flex items-center gap-2 mt-8"
+            {trustIndicators.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                className="bg-white rounded-xl p-5 shadow-md border border-gray-100 hover:shadow-lg hover:border-primary/20 transition-all duration-300"
               >
-                Learn More About {DOCTOR_FULL_NAME}
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </motion.div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center">
+                    <item.icon className="w-5 h-5 text-primary" weight="duotone" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 leading-tight">
+                      {item.title}
+                      <span className="block text-primary font-bold">{item.subtitle}</span>
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-1 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
 
+      {/* About Preview Section */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Image Column */}
+            <FadeInUp>
+              <div className="relative">
+                <div className="relative max-w-md mx-auto lg:mx-0">
+                  {/* Decorative background */}
+                  <div className="absolute -inset-3 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 -z-10" aria-hidden="true"></div>
+                  <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                    <Image
+                      src="/images/dr-kirupakaran.jpg"
+                      alt="Dr. G.P. Kirupakaran"
+                      width={500}
+                      height={600}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                  
+                  {/* Experience badge */}
+                  <div className="absolute -bottom-4 -right-4 bg-white rounded-xl p-4 shadow-lg border border-gray-100">
+                    <div className="text-center">
+                      <span className="block text-2xl font-bold text-primary">30+</span>
+                      <span className="text-xs text-gray-600">Years Experience</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeInUp>
+
+            {/* Text Column */}
+            <FadeInUp delay={0.15}>
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
+                  About the Doctor
+                </div>
+                
+                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-3 tracking-tight">
+                  Meet {DOCTOR_FULL_NAME}
+                </h2>
+
+                <p className="text-base text-primary-dark font-medium mb-4">
+                  MBBS, MD, DA, DFID
+                </p>
+
+                <div className="space-y-3 text-gray-600 leading-relaxed">
+                  <p>
+                    Salem&apos;s leading anaesthetist with over{' '}
+                    <span className="text-primary font-semibold">30 years</span> of dedicated experience 
+                    in pain management and palliative care.
+                  </p>
+
+                  <p>
+                    A distinguished graduate of the prestigious Christian Medical College (CMC) Vellore, 
+                    Dr. Kirupakaran has helped thousands of patients reclaim their quality of life 
+                    through innovative pain management techniques.
+                  </p>
+                </div>
+
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-2 mt-5 text-primary font-semibold hover:text-primary-dark transition-colors group"
+                >
+                  Learn More About {DOCTOR_FULL_NAME}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </FadeInUp>
+          </div>
+        </div>
+      </section>
+
       {/* Services Grid */}
-      <section className="section-padding bg-white relative overflow-hidden">
-        {/* Subtle modern background */}
-        <div 
-          className="absolute inset-0 -z-10 h-full w-full bg-white 
-                     [background:radial-gradient(125%_125%_at_50%_10%,_#fff_40%,_#2B5273_100%)]"
-          style={{ opacity: 0.03 }}
-        />
-        
+      <section className="py-14 md:py-20 bg-[#f8fbff] relative overflow-hidden">
         <div className="container-custom relative z-10">
-          {/* Modern Section Header */}
+          {/* Section Header */}
           <FadeInUp>
-            <div className="text-center mb-16 max-w-3xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6">
+            <div className="text-center mb-10 max-w-2xl mx-auto">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-3">
                 Our Services
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-3 tracking-tight">
                 Specialized Care for Your Pain
               </h2>
-              <p className="text-xl text-text-gray leading-relaxed">
-                We offer a comprehensive range of advanced treatments to help you 
-                regain your life from chronic pain
+              <p className="text-base text-gray-600 leading-relaxed">
+                Comprehensive range of advanced treatments to help you regain your life from chronic pain
               </p>
             </div>
           </FadeInUp>
 
-          {/* Services Grid with Scroll Animation */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map((service, index) => (
-              <FadeInUp key={index} delay={index * 0.1}>
+              <FadeInUp key={index} delay={index * 0.06}>
                 <ServiceCard
                   icon={service.icon}
                   title={service.title}
@@ -221,50 +359,51 @@ export default function Home() {
       <WhyChooseUs />
 
       {/* Call-to-Action Section */}
-      <section className="section-padding bg-gradient-to-br from-primary via-primary-dark to-[#1A2533] relative overflow-hidden">
+      <section className="py-14 md:py-16 bg-gradient-to-br from-primary via-primary-dark to-[#003d80] relative overflow-hidden">
         {/* Decorative circles */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-light/30 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
-        
-        <motion.div 
-          className="max-w-4xl mx-auto px-6 md:px-8 text-center relative z-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary-light/20 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+
+        <motion.div
+          className="max-w-3xl mx-auto px-6 md:px-8 text-center relative z-10"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-6 tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-3 tracking-tight">
             Ready to Schedule Your Consultation?
           </h2>
-          
-          <p className="text-lg md:text-xl text-white mb-12 max-w-2xl mx-auto leading-relaxed">
+
+          <p className="text-base text-white/85 mb-6 max-w-xl mx-auto leading-relaxed">
             Don&apos;t let pain control your life. Take the first step towards relief today.
           </p>
-          
-          {/* CTA Buttons - Get Directions & Call Now */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a 
-              href="https://www.google.com/maps/place/Salem+pain+and+palliative+care+clinic/@11.679437241888115,78.12624407549251,17z/data=!3m1!4b1!4m6!3m5!1s0x3babf1f588bc086f:0x77d230e475f745d9!8m2!3d11.679437241888115!4d78.12624407549251!16s%2Fg%2F11c5q5p5qg" 
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <a
+              href="https://www.google.com/maps/place/Salem+pain+and+palliative+care+clinic/@11.679437241888115,78.12624407549251,17z"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center px-8 py-5 bg-white text-primary rounded-full font-bold text-lg shadow-2xl hover:shadow-[0_0_40px_rgba(255,255,255,0.5)] hover:scale-105 transform transition-all duration-300 min-w-[280px]"
+              className="flex items-center px-5 py-3 bg-white text-primary rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300"
             >
-              <MapPin className="w-6 h-6 mr-3 text-primary transition-transform group-hover:scale-110" weight="bold" />
+              <MapPin className="w-4 h-4 mr-2" weight="bold" />
               Get Directions
             </a>
-            
-            <a 
-              href="tel:+919095596999" 
-              className="group flex items-center px-8 py-5 bg-white text-primary rounded-full font-bold text-lg shadow-2xl hover:shadow-[0_0_40px_rgba(255,255,255,0.5)] hover:scale-105 transform transition-all duration-300 min-w-[280px]"
+
+            <a
+              href="tel:+919095596999"
+              className="flex items-center px-5 py-3 bg-white text-primary rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300"
             >
-              <Phone className="w-6 h-6 mr-3 text-primary transition-transform group-hover:scale-110" weight="bold" />
+              <Phone className="w-4 h-4 mr-2" weight="bold" />
               Call Now
             </a>
           </div>
-          
+
           {/* Office hours */}
-          <p className="text-white mt-8 text-sm md:text-base flex items-center justify-center">
-            <Clock className="w-4 h-4 mr-2 text-white" weight="bold" />
-            Open Monday - Saturday | 10:00 AM - 1:00 PM
+          <p className="text-white/70 mt-5 text-sm flex items-center justify-center">
+            <Clock className="w-4 h-4 mr-2" weight="bold" />
+            Monday - Saturday | 10:00 AM - 1:00 PM
           </p>
         </motion.div>
       </section>
