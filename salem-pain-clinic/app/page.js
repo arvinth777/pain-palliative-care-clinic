@@ -370,7 +370,7 @@ export default function Home() {
             </div>
           </FadeInUp>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {[
               'Back Pain',
               'Knee Pain',
@@ -385,10 +385,10 @@ export default function Home() {
               'Fibromyalgia',
               'Sports Injuries',
             ].map((condition, index) => (
-              <FadeInUp key={index} delay={index * 0.05}>
-                <div className="flex items-center gap-3 bg-gray-50 hover:bg-primary/5 border border-gray-100 hover:border-primary/20 rounded-xl p-4 transition-all duration-300 group cursor-default">
+              <FadeInUp key={index} delay={index * 0.05} className="h-full">
+                <div className="flex items-center gap-3 bg-gray-50 hover:bg-primary/5 border border-gray-100 hover:border-primary/20 rounded-xl p-4 transition-all duration-300 group cursor-default h-full">
                   <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" weight="fill" />
-                  <h3 className="font-semibold text-gray-800 group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-gray-800 group-hover:text-primary transition-colors text-sm sm:text-base">
                     {condition}
                   </h3>
                 </div>
