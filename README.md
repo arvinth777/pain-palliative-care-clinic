@@ -4,7 +4,7 @@ A professional, premium medical website designed for **Dr. G.P. Kirupakaran's Pa
 
 This project is a modern, mobile-first web application featuring an Apple-inspired glassmorphism design, smooth animations, and a fully responsive layout. It serves as the digital front door for the clinic, providing patients with service details, doctor credentials, and easy contact options.
 
-## 🚀 Key Features
+##  Key Features
 
 - **Premium UI/UX**: Custom "Glassmorphism" design system with Tailwind CSS and Framer Motion animations.
 - **Mobile-First**: Fully responsive layouts optimized for all devices (Mobile, Tablet, Desktop).
@@ -14,7 +14,7 @@ This project is a modern, mobile-first web application featuring an Apple-inspir
 - **SEO Optimized**: Includes Sitemap, Robots.txt, Schema markup, and meta tags.
 - **Quality Assurance**: Comprehensive automated testing suite using **Playwright**.
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 - **Framework**: [Next.js 15.5](https://nextjs.org/) (App Router)
 - **Styling**: [Tailwind CSS 3.4](https://tailwindcss.com/)
@@ -24,7 +24,7 @@ This project is a modern, mobile-first web application featuring an Apple-inspir
 - **Testing**: [Playwright](https://playwright.dev/)
 - **Deployment**: Vercel Ready
 
-## 🏁 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -93,7 +93,7 @@ salem-pain-clinic/
 └── tailwind.config.js    # Design system configuration
 ```
 
-## ⚙️ Configuration
+##  Configuration
 
 The application requires specific environment variables to function correctly. Refer to `.env.local.example` for the complete list.
 
