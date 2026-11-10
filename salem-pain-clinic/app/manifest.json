@@ -5,8 +5,8 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "/images/logo.png",
-      "sizes": "200x200",
+      "src": "/images/clinic-logo-refined.png",
+      "sizes": "1254x1254",
       "type": "image/png",
       "purpose": "any"
     },
@@ -23,7 +23,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#2B5273",
+  "theme_color": "#1754a7",
   "background_color": "#ffffff",
   "display": "standalone"
 }

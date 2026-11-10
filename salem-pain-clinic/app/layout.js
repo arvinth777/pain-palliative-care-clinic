@@ -1,237 +1,49 @@
-import { Inter, Lora } from 'next/font/google';
+import LanguageProvider from '@/components/LanguageProvider';
+import { getLanguage } from '@/lib/server-language';
+import { WEBSITE_URL } from '@/lib/constants';
+import { clinicGraph } from '@/lib/seo';
+import StructuredData from '@/components/StructuredData';
 import './globals.css';
+import './home.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ClientChatbotWrapper from '../components/ClientChatbotWrapper';
-import Script from 'next/script';
+import PageMotion from '@/components/PageMotion';
 import { Analytics } from '@vercel/analytics/next';
 
-// Force dynamic rendering to avoid Radix UI SSR issues
+// Public page language is resolved from the URL by middleware.
 export const dynamic = 'force-dynamic';
 
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-body',
-  display: 'swap',
-  fallback: ['system-ui', 'arial']
-});
-const lora = Lora({
-  subsets: ['latin'],
-  weight: ['600', '700'],
-  variable: '--font-heading',
-  display: 'swap',
-  fallback: ['Georgia', 'serif']
-});
-const DOCTOR_FULL_NAME = 'Dr.\u00A0G.P.\u00A0Kirupakaran';
-
 export const metadata = {
-  title: 'Salem Pain Clinic | Expert Pain Management in Salem, Tamil Nadu',
-  description: `30+ years of specialized pain management & palliative care. ${DOCTOR_FULL_NAME} offers advanced ultrasound-guided procedures in Salem.`,
-  keywords: 'pain management Salem, pain doctor Salem Tamil Nadu, palliative care Salem, chronic pain treatment Salem, cancer pain relief Salem, interventional pain procedures Salem',
-  authors: [{ name: 'Dr. G.P. Kirupakaran' }],
-  creator: 'Salem Pain Clinic',
+  metadataBase: new URL(WEBSITE_URL),
+  applicationName: 'Salem Pain Clinic',
+  title: 'Salem Pain Clinic',
+  description: 'Pain management and palliative care in Swarnapuri, Salem, Tamil Nadu.',
   publisher: 'Salem Pain Clinic',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  alternates: {
-    canonical: 'https://www.thesalempainclinic.com',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: '32x32' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
-    ],
-    apple: [
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-    other: [
-      {
-        rel: 'apple-touch-icon-precomposed',
-        url: '/apple-icon.png',
-      },
-    ],
-  },
-  openGraph: {
-    title: 'Salem Pain Clinic | Expert Pain Management in Salem, Tamil Nadu',
-    description: `30+ years of specialized pain management & palliative care. ${DOCTOR_FULL_NAME} offers advanced ultrasound-guided procedures in Salem.`,
-    url: 'https://www.thesalempainclinic.com',
-    siteName: 'Salem Pain Clinic',
-    locale: 'en_IN',
-    type: 'website',
-    images: [
-      {
-        url: 'https://www.thesalempainclinic.com/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Salem Pain Clinic - Expert Pain Management',
-      },
-      {
-        url: 'https://www.thesalempainclinic.com/images/logo.png',
-        width: 200,
-        height: 200,
-        alt: 'Salem Pain Clinic Logo',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Salem Pain Clinic | Expert Pain Management',
-    description: '30+ years of specialized pain management & palliative care in Salem, Tamil Nadu',
-    images: ['https://www.thesalempainclinic.com/og-image.jpg'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      maxVideoPreview: -1,
-      maxImagePreview: 'large',
-      maxSnippet: -1,
-    },
-  },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION_TOKEN || '', // Add your Google Search Console token to .env.local
-  },
+  formatDetection: { email: false, address: false, telephone: false },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-video-preview': -1, 'max-snippet': -1 } },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION_TOKEN && { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION_TOKEN } }),
 };
 
-const jsonLdMedicalBusiness = {
-  '@context': 'https://schema.org',
-  '@type': 'MedicalBusiness',
-  name: 'Salem Pain Clinic',
-  description: 'Pain management and palliative care clinic in Salem, Tamil Nadu',
-  logo: {
-    '@type': 'ImageObject',
-    url: 'https://www.thesalempainclinic.com/images/logo.png',
-    width: 200,
-    height: 200
-  },
-  image: 'https://www.thesalempainclinic.com/images/logo.png',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: '108, Omalur Main Rd, near ANS divyam, Swarnapuri Annexe',
-    addressLocality: 'Salem',
-    addressRegion: 'Tamil Nadu',
-    postalCode: '636004',
-    addressCountry: 'IN'
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 11.6806,
-    longitude: 78.1407
-  },
-  url: 'https://www.thesalempainclinic.com',
-  telephone: ['+91-9842798422', '+91-9095596999'],
-  email: 'contact@thesalempainclinic.com',
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    opens: '10:00',
-    closes: '13:00'
-  },
-  priceRange: '₹₹',
-  medicalSpecialty: ['Pain Management', 'Anaesthesiology', 'Palliative Medicine'],
-  founder: {
-    '@type': 'Person',
-    name: DOCTOR_FULL_NAME,
-    jobTitle: 'Chief Medical Officer'
-  }
-};
-
-const jsonLdPhysician = {
-  '@context': 'https://schema.org',
-  '@type': 'Physician',
-  '@id': 'https://www.thesalempainclinic.com/#physician',
-  name: DOCTOR_FULL_NAME,
-  description: 'Leading pain management specialist in Salem with 30+ years experience',
-  medicalSpecialty: ['Pain Management', 'Anaesthesiology', 'Palliative Care'],
-  alumniOf: [
-    {
-      '@type': 'EducationalOrganization',
-      name: 'Coimbatore Medical College'
-    },
-    {
-      '@type': 'EducationalOrganization',
-      name: 'Christian Medical College, Vellore'
-    },
-    {
-      '@type': 'EducationalOrganization',
-      name: 'Madras Medical College'
-    }
-  ],
-  yearsExperience: '30+',
-  qualifications: ['MBBS', 'MD', 'DA'],
-  worksFor: {
-    '@type': 'MedicalBusiness',
-    name: 'Salem Pain Clinic',
-    url: 'https://www.thesalempainclinic.com'
-  },
-  knowsAbout: ['Chronic Pain Management', 'Cancer Pain Relief', 'Interventional Pain Procedures', 'Palliative Care']
-};
-
-const jsonLdOrganization = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Salem Pain Clinic',
-  url: 'https://www.thesalempainclinic.com',
-  logo: {
-    '@type': 'ImageObject',
-    url: 'https://www.thesalempainclinic.com/images/logo.png',
-    width: 200,
-    height: 200,
-    contentUrl: 'https://www.thesalempainclinic.com/images/logo.png'
-  },
-  image: 'https://www.thesalempainclinic.com/images/logo.png',
-  sameAs: [
-    'https://www.facebook.com/salempainclinic',
-    'https://twitter.com/salempainclinic'
-  ],
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+91-9842798422',
-    contactType: 'customer service'
-  }
-};
-
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const { language, t } = await getLanguage();
   return (
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang={language} className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://www.thesalempainclinic.com" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Script
-          id="schema-medical-business"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLdMedicalBusiness)
-          }}
-        />
-        <Script
-          id="schema-physician"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLdPhysician)
-          }}
-        />
-        <Script
-          id="schema-organization"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLdOrganization)
-          }}
-        />
+        <link rel="preload" href="/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {language === 'ta' && <link rel="preload" href="/fonts/noto-sans-tamil.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />}
       </head>
-      <body className={`${inter.variable} ${lora.variable} antialiased font-sans`}>
+      <body className="antialiased font-sans">
+        <LanguageProvider language={language}>
+        <a href="#main-content" className="clinic-skip-link">{t('Skip to content')}</a>
+        <StructuredData id="clinic-schema" data={clinicGraph()} />
         <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <main id="main-content" tabIndex={-1} className="min-h-screen">{children}</main>
+        <PageMotion />
         <ClientChatbotWrapper />
+        <Footer />
         <Analytics />
+        </LanguageProvider>
       </body>
     </html>
   );

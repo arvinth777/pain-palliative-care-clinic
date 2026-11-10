@@ -5,12 +5,12 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      `script-src 'self' 'unsafe-inline' https://www.noupe.com${isDev ? " 'unsafe-eval'" : ''}`,
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data: blob: https://cdn.sanity.io",
-      "connect-src 'self' https://www.noupe.com https://d0m8dwid.api.sanity.io https://d0m8dwid.apicdn.sanity.io",
+      "img-src 'self' data: blob:",
+      "connect-src 'self'",
       "frame-src https://www.google.com https://maps.google.com"
     ].join('; ')
   },
@@ -22,20 +22,15 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Force dynamic rendering to avoid Radix UI SSR issues with Next.js 15
-  output: 'standalone',
+  // Preserve the original origin so locale rewrites remain internal on loopback hosts too.
+  skipMiddlewareUrlNormalize: true,
+  // Metadata is local and cheap; deliver it in <head> to every crawler and preview client.
+  htmlLimitedBots: /.*/,
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24, // 24 hours cache
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cdn.sanity.io',
-        pathname: '/**',
-      },
-    ],
   },
   // Enable compression
   compress: true,
@@ -44,7 +39,7 @@ const nextConfig = {
   reactStrictMode: true,
   // Experimental features to fix Radix UI SSR issues
   experimental: {
-    optimizePackageImports: ['@radix-ui/react-label', '@radix-ui/react-accordion', '@radix-ui/react-scroll-area', 'lucide-react', 'framer-motion'],
+    optimizePackageImports: ['@radix-ui/react-label', 'lucide-react', 'framer-motion'],
   },
   async headers() {
     return [
@@ -52,6 +47,7 @@ const nextConfig = {
         source: '/(.*)',
         headers: securityHeaders,
       },
+      { source: '/api/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] },
       // Cache static assets longer
       {
         source: '/images/(.*)',

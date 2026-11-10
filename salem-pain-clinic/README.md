@@ -1,244 +1,36 @@
-# Salem Pain Clinic Website
+# Salem Pain Clinic
 
-Professional medical website for Dr. G.P. Kirupakaran's pain management and palliative care clinic in Salem, Tamil Nadu.
+Next.js website for Salem Pain & Palliative Care Clinic. Run these commands from the `salem-pain-clinic` directory.
 
-## Features
-
-- **Responsive Design**: Mobile-first approach with full responsiveness across all devices
-- **SEO Optimized**: Complete with meta tags, schema markup, sitemap, and robots.txt
-- **Performance Focused**: Built with Next.js 15 for optimal loading speeds
-- **Accessibility**: WCAG 2.1 AA compliant with proper semantic HTML
-- **Modern UI**: Clean, professional design using Tailwind CSS
-
-## Project Structure
-
-```
-salem-pain-clinic/
-├── app/
-│   ├── layout.js          # Root layout with header/footer
-│   ├── page.js            # Homepage
-│   ├── globals.css        # Global styles
-│   ├── not-found.js       # 404 error page
-│   ├── about/
-│   │   └── page.js        # About Dr. Kirupakaran
-│   ├── services/
-│   │   └── page.js        # Comprehensive services listing
-│   ├── faq/
-│   │   └── page.js        # Frequently asked questions
-│   ├── contact/
-│   │   └── page.js        # Contact information & form
-│   ├── privacy/
-│   │   └── page.js        # Privacy policy
-│   ├── terms/
-│   │   └── page.js        # Terms of service
-│   └── disclaimer/
-│       └── page.js        # Medical disclaimer
-├── components/
-│   ├── Header.js          # Navigation header (responsive)
-│   ├── Footer.js          # Site footer with links
-│   └── ServiceCard.js     # Reusable service card component
-├── public/
-│   ├── robots.txt         # SEO robots file
-│   ├── sitemap.xml        # XML sitemap for search engines
-│   └── images/            # Image assets (placeholders)
-├── package.json           # Dependencies and scripts
-├── tailwind.config.js     # Tailwind CSS configuration
-├── postcss.config.js      # PostCSS configuration
-└── next.config.js         # Next.js configuration
-```
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18.0 or higher
-- npm or yarn package manager
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone [repository-url]
-cd salem-pain-clinic
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Run the development server:
-```bash
+```sh
+npm ci
+cp .env.local.example .env.local
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+Open [localhost:3000](http://localhost:3000). The pages work without credentials. Fill in the email settings to send contact requests through Resend, or configure a webhook. Common clinic questions work without an API key. Set `GEMINI_API_KEY` for other chat questions.
 
-### Build for Production
-
-```bash
+```sh
 npm run build
-npm run start
+npx playwright install chromium
+npm run test:e2e
 ```
 
-## Design System
+Clinic hours, address, and phone numbers live in `lib/constants.js`. The site design is documented in [DESIGN.md](DESIGN.md). GitHub Actions runs the build and Playwright suite from this directory. Vercel hosts the site using this directory as its project root.
 
-### Color Palette
+## Search and local discovery
 
-- **Primary Blue**: #2563eb
-- **Dark Blue**: #1e40af  
-- **Light Blue**: #60a5fa
-- **Cream**: #fefce8
-- **Text Dark**: #1f2937
-- **Text Gray**: #6b7280
+The canonical origin is `https://www.thesalempainclinic.com`. Vercel permanently redirects the apex domain to it with HTTP 308, preserving paths and query strings. English uses the existing eight public URLs; Tamil uses `/ta` and `/ta/...`. Middleware resolves the language from the URL, so both versions render complete content without JavaScript or cookies. Header and footer links preserve the language. Each page declares its own canonical URL and reciprocal `en-IN`, `ta-IN` and `x-default` alternates, following [Google's multilingual site guidance](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites).
 
-### Typography
+- `lib/seo.js` is the page title, description, language-link and clinic/doctor schema source. Translate new strings in `lib/tamil.json`.
+- `components/StructuredData.js` renders page and breadcrumb schema. FAQ schema uses the same `lib/faq.js` answers as the visible page. Do not add ratings, social profiles, qualifications or medical outcome claims without verified sources. Structured data does not guarantee a special search appearance.
+- `/sitemap.xml` generates all 16 public URLs and their language alternates. Dates are omitted rather than reporting invented modification dates. Add new public pages to `pages` in `lib/seo.js`.
+- `/robots.txt` allows rendering resources and excludes API endpoints. Missing pages return 404 with `noindex`; API responses carry `X-Robots-Tag: noindex, nofollow`.
+- `/og` generates the 1200 × 630 branded social preview at build time. Page metadata is included in the initial HTML head for search and share crawlers.
+- The clinic map coordinates match its Google Maps listing. PIN **636004** was confirmed by the owner on 10 November 2026; opening hours match the Business Profile. Keep name, address, phones and hours consistent when changing either source.
 
-- **Headings**: Inter font family
-- **Body**: Open Sans / System fonts
-- **Minimum font size**: 16px for accessibility
+Run `npm run build`, `npm run lint` and `npm run test:e2e` before release. The 19-test suite covers raw HTML metadata and schema on all 16 URLs, crawl resources, real 404s, language navigation, mobile layout, contact form states and clinic chat. Contact delivery is mocked in browser tests. Use `PLAYWRIGHT_BASE_URL` to run against a separately built local server.
 
-## Pages Overview
+Google Search Console and Business Profile already exist. Submit the canonical sitemap in the domain property after route changes, and inspect important new URLs. Google's crawl, indexing and ranking decisions are separate from passing website tests. Review Search Console coverage and queries after Google has recrawled; use real, clinician-reviewed content to address patient questions rather than creating duplicate location or keyword pages.
 
-### Homepage (`/`)
-- Hero section with CTAs
-- About preview
-- Services grid (6 services)
-- Why Choose Us section
-- Contact CTA
-
-### About (`/about`)
-- Doctor profile
-- Advanced technology section
-- Hospital affiliations
-- Credentials & certifications
-
-### Services (`/services`)
-- 7 detailed service sections:
-  - Chronic Pain Management
-  - Cancer Pain Relief
-  - Interventional Pain Procedures (Featured)
-  - Palliative Care Consultations
-  - Post-Surgical Pain Management
-  - Neuropathic Pain Treatment
-  - Headache & Migraine Management
-
-### Contact (`/contact`)
-- Contact information
-- Office hours
-- Contact form
-- Google Maps integration
-- Phone numbers with click-to-call
-
-### Privacy Policy (`/privacy`)
-- Comprehensive privacy practices for patient data
-- Consent, retention, and sharing guidelines
-
-### Terms of Service (`/terms`)
-- Clinic policies for appointments, payments, and website usage
-- Patient responsibilities and dispute resolution
-
-### Medical Disclaimer (`/disclaimer`)
-- Scope of website information and liability limitations
-- Emergency response instructions
-
-### FAQ (`/faq`)
-- 18 frequently asked questions
-- Expandable accordion interface
-- Quick info cards
-
-## Configuration
-
-### Environment Variables
-
-Create a `.env.local` file for any environment-specific configurations:
-
-```env
-# Google Maps API Key (optional, for custom map styling)
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_key_here
-
-# Optional: override the default internal API route for form submissions
-NEXT_PUBLIC_FORM_ENDPOINT=https://your-domain.com/api/contact
-
-# Optional: forward contact form submissions to an external service/webhook
-CONTACT_FORM_FORWARD_URL=https://example-crm.com/webhooks/contact
-```
-
-The contact form posts to `/api/contact` by default. Configure `CONTACT_FORM_FORWARD_URL` to relay submissions to a CRM, email service, or automation platform. If no forward URL is set, submissions are logged to the server console for manual follow-up.
-
-## SEO Features
-
-- **Meta Tags**: Unique titles and descriptions for each page
-- **Open Graph**: Social media sharing optimization
-- **Twitter Cards**: Twitter-specific meta tags
-- **Schema Markup**: Medical business and physician structured data
-- **Sitemap**: XML sitemap for search engines
-- **Robots.txt**: Search engine crawling instructions
-
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push code to GitHub
-2. Import project to Vercel
-3. Deploy with automatic builds
-
-### Manual Deployment
-
-1. Build the project:
-```bash
-npm run build
-```
-
-2. Upload the `.next` folder to your hosting provider
-
-## Content Updates
-
-### Updating Contact Information
-
-Edit the following files:
-- `components/Header.js` - Phone numbers in header
-- `components/Footer.js` - Contact section
-- `app/contact/page.js` - Main contact page
-
-### Adding Real Images
-
-Replace placeholder images in:
-- `app/about/page.js` - Doctor photo and equipment
-- `app/page.js` - Hero and service images
-- Add actual images to `public/images/`
-
-### Modifying Services
-
-Edit `app/services/page.js` to:
-- Add new services
-- Update service descriptions
-- Modify treatment options
-
-## Maintenance
-
-### Regular Updates
-
-- Keep Next.js and dependencies updated
-- Monitor Core Web Vitals
-- Update content as needed
-- Check for broken links
-
-### Performance Monitoring
-
-- Use Lighthouse for performance audits
-- Monitor loading speeds
-- Check mobile responsiveness
-- Verify SEO rankings
-
-## Support
-
-For technical support or questions about the website:
-- Create an issue in the repository
-- Contact the development team
-
-## License
-
-© 2025 Salem Pain Clinic. All rights reserved.
-
----
+Release verification, 10 November 2026: production build and lint passed; all 19 local regression tests passed and all five SEO checks passed against production. Mobile Lighthouse on the live English homepage measured performance 99, accessibility 100, best practices 100 and SEO 100 (previously 98/100/100/92); Tamil measured 98/100/100/100. LCP was 1.6 seconds for English and 2.3 seconds for Tamil, with CLS 0 for both in those runs; lab results vary with network and device. Search Console fetched the submitted sitemap successfully and discovered all 16 URLs. Indexing requests for `/ta` and `/contact` were accepted into Google’s crawl queue; this is not confirmation that those pages are indexed yet. Business Profile now shows the canonical HTTPS website URL and owner-confirmed PIN 636004. Its existing “Hospital” category was retained; review whether a more specific category accurately represents the registered practice before changing it.

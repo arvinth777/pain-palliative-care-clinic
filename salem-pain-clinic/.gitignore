@@ -40,3 +40,9 @@ coverage/
 .vercel
 .turbo
 
+
+/test-results/
+/playwright-report/
+/test-screenshots/
+/.taste-skill/
+/.impeccable/review/

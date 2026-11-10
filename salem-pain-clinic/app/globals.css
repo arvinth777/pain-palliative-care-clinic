@@ -20,13 +20,6 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* GPU acceleration for animations */
-.animate-gradient,
-[class*="animate-"] {
-  will-change: transform;
-  transform: translateZ(0);
-}
-
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -35,13 +28,9 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Optimize images for faster loading */
-img {
-  content-visibility: auto;
 }
 
 /* Improve tap targets on mobile */
@@ -51,63 +40,6 @@ img {
   [role="button"] {
     min-height: 44px;
     min-width: 44px;
-  }
-}
-
-/* Custom animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes accordion-down {
-  from {
-    height: 0;
-  }
-
-  to {
-    height: var(--radix-accordion-content-height);
-  }
-}
-
-@keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-
-  to {
-    height: 0;
   }
 }
 
@@ -127,41 +59,9 @@ section[id] {
   scroll-margin-top: 5rem;
 }
 
-/* Background Patterns */
-.bg-grid-pattern {
-  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.bg-subtle-gradient {
-  background: linear-gradient(to bottom right, #ffffff, #f8fafc, #f1f5f9);
-}
-
-/* Animation utilities */
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease-out forwards;
-  opacity: 0;
-}
-
-.animation-delay-100 {
-  animation-delay: 100ms;
-}
-
-.animation-delay-200 {
-  animation-delay: 200ms;
-}
-
-.animation-delay-400 {
-  animation-delay: 400ms;
-}
-
-.animation-delay-600 {
-  animation-delay: 600ms;
-}
-
 @layer base {
   body {
-    @apply font-sans text-text-gray bg-white overflow-x-hidden;
+    @apply font-sans text-text-gray bg-background overflow-x-hidden;
   }
 
   h1,
@@ -192,22 +92,20 @@ section[id] {
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 211 100% 35%;
-    /* #0056b3 */
+    --primary: 215 76% 37%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 210 50% 94%;
-    /* #e6f0fa */
-    --secondary-foreground: 211 100% 35%;
+    --secondary: 210 75% 95%;
+    --secondary-foreground: 215 76% 37%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
-    --accent: 210 50% 94%;
-    --accent-foreground: 211 100% 35%;
+    --accent: 210 75% 95%;
+    --accent-foreground: 215 76% 37%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
-    --ring: 211 100% 35%;
-    --radius: 0.5rem;
+    --ring: 215 76% 37%;
+    --radius: 0.25rem;
   }
 }
 

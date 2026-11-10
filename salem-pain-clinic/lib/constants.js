@@ -3,6 +3,7 @@
 
 export const CLINIC_NAME = 'Salem Pain & Palliative Care Clinic';
 export const DOCTOR_FULL_NAME = 'Dr.\u00A0G.P.\u00A0Kirupakaran';
+export const DOCTOR_DEGREES = 'MBBS, MD, DA, DFID';
 
 // Phone Numbers
 export const PHONE_PRIMARY = '+919842798422';
@@ -18,13 +19,20 @@ export const CLINIC_PINCODE = '636004';
 
 // Operating Hours
 export const CLINIC_HOURS = 'Monday-Saturday, 10:00 AM - 1:00 PM';
-export const CLINIC_HOURS_SHORT = 'Mon-Sat, 10 AM - 1 PM';
 export const CLINIC_CLOSED = 'Closed Sundays';
 
 // Website
 export const WEBSITE_URL = 'https://www.thesalempainclinic.com';
 
+export const SITE_PAGES = [
+  { label: 'Home', href: '/' },
+  { label: 'Treatments', href: '/services' },
+  { label: 'About', href: '/about' },
+  { label: 'FAQs', href: '/faq' },
+  { label: 'Visit & contact', href: '/contact' },
+];
+
 // Google Maps
-export const GOOGLE_MAPS_URL = 'https://www.google.com/maps/place/Salem+pain+and+palliative+care+clinic/@11.679437241888115,78.12624407549251,17z/data=!3m1!4b1!4m6!3m5!1s0x3babf1f588bc086f:0x77d230e475f745d9!8m2!3d11.679437241888115!4d78.12624407549251!16s%2Fg%2F11c5q5p5qg';
-export const CLINIC_LATITUDE = '11.679437241888115';
-export const CLINIC_LONGITUDE = '78.12624407549251';
+export const GOOGLE_MAPS_URL = 'https://www.google.com/maps?cid=8634017193412478425';
+export const CLINIC_LATITUDE = '11.6793165';
+export const CLINIC_LONGITUDE = '78.128784';
