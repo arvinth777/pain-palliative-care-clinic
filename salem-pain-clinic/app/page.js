@@ -26,7 +26,7 @@ export default async function Home() {
           <div className="clinic-hero-intro">
             <div className="clinic-hero-copy">
               <h1 id="clinic-hero-title">{t("Specialist pain care in Salem.")}</h1>
-              <p className="clinic-lead">{t("Care for persistent pain and support through serious illness.")}</p>
+              <p className="clinic-lead">{t("Advanced, image-guided pain care designed to relieve chronic pain and restore mobility.")}</p>
             </div>
             <PainCarousel />
             <nav className="clinic-hero-scope" aria-label={t("Our areas of care")}>
