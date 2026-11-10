@@ -220,8 +220,8 @@
 .clinic-care-band p { margin-top: 22px; max-width: 44ch; }
 
 .clinic-doctor-grid { border-block: 1px solid var(--clinic-line); display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: clamp(32px, 7vw, 100px); }
-.clinic-doctor-photo { position: relative; width: 100%; max-width: 540px; aspect-ratio: 1.05; overflow: hidden; border-radius: 8px; }
-.clinic-doctor-photo img { object-fit: cover; object-position: center 10%; }
+.clinic-doctor-photo { position: relative; width: 100%; max-width: 540px; aspect-ratio: 1.38; overflow: hidden; border-radius: 8px; }
+.clinic-doctor-photo img { object-fit: cover; object-position: center top; }
 .clinic-doctor-copy > p { margin-top: 20px; }
 .clinic-doctor-copy h2 { max-width: 19ch; font-weight: 600; }
 .clinic-credentials { display: block; margin-top: 12px; color: var(--clinic-accent-strong); font-size: 1rem; font-stretch: 100%; letter-spacing: 0; line-height: 1.4; font-weight: 600; }
@@ -313,7 +313,7 @@ body:has(.clinic-home) { overflow-x: clip; }
 .clinic-about-intro { grid-template-columns: 1.12fr minmax(0, .88fr); }
 .clinic-about-intro h1 { max-width: 13ch; text-wrap: wrap; }
 .clinic-about-intro .clinic-credentials { margin-top: 16px; }
-.clinic-about-intro > .clinic-about-portrait img { aspect-ratio: 1.18; object-position: center 38%; }
+.clinic-about-intro > .clinic-about-portrait img { aspect-ratio: 1.38; object-position: center top; }
 .clinic-about-page .clinic-visit { grid-template-columns: 1.15fr .85fr; }
 .clinic-about-page .clinic-care-band p { margin-top: 0; }
 .clinic-about-next {
@@ -484,7 +484,6 @@ body:has(.clinic-home) { overflow-x: clip; }
   }
   .clinic-care-steps li { padding-inline-start: calc(var(--step-marker) + 14px); }
   .clinic-care-steps li::before { position: absolute; inset: 0 auto auto 0; margin: 0; }
-  .clinic-doctor-photo { aspect-ratio: 1.12; }
   .clinic-doctor-copy h2 { max-width: 22ch; }
   .clinic-treatment-story, .clinic-treatment-story:nth-child(even) { grid-template-columns: 1fr; gap: 28px; }
   .clinic-treatment-story:nth-child(even) > figure { order: 0; }
